@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { buildCheckoutLineItems } from "@/lib/pricing";
 import { getProductById } from "@/lib/products";
+import { getStripe } from "@/lib/stripe";
 import { isUsShippingEligible } from "@/lib/shipping";
-import { stripe } from "@/lib/stripe";
 import type { CartItem } from "@/types";
 
 const freeShippingRate = (
@@ -24,9 +24,9 @@ const freeShippingRate = (
 
 export async function POST(request: Request) {
   try {
-    if (!process.env.STRIPE_SECRET_KEY) {
+    if (!process.env.STRIPE_SECRET_KEY?.trim()) {
       return NextResponse.json(
-        { error: "Stripe is not configured. Add STRIPE_SECRET_KEY to .env.local" },
+        { error: "Stripe is not configured. Add STRIPE_SECRET_KEY in Vercel." },
         { status: 500 },
       );
     }
@@ -46,6 +46,7 @@ export async function POST(request: Request) {
       }
     }
 
+    const stripe = getStripe();
     const checkoutLines = buildCheckoutLineItems(items);
     const subtotal = checkoutLines.reduce(
       (sum, line) => sum + line.unitAmount * line.quantity,
@@ -59,7 +60,6 @@ export async function POST(request: Request) {
           product_data: {
             name: line.name,
             description: line.description,
-            metadata: line.metadata,
           },
           unit_amount: line.unitAmount,
         },
@@ -86,29 +86,23 @@ export async function POST(request: Request) {
         allowed_countries: usEligible ? ["GB", "US"] : ["GB"],
       },
       shipping_options: shippingOptions,
-      custom_text: usEligible
-        ? {
-            shipping_address: {
-              message:
-                "Free shipping on all orders. Select Free US shipping if delivering to the United States.",
-            },
-          }
-        : {
-            shipping_address: {
-              message: "Free shipping on all UK orders.",
-            },
-          },
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cart`,
       phone_number_collection: { enabled: true },
     });
 
+    if (!session.url) {
+      return NextResponse.json(
+        { error: "Stripe did not return a checkout URL" },
+        { status: 500 },
+      );
+    }
+
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Checkout error:", error);
-    return NextResponse.json(
-      { error: "Failed to create checkout session" },
-      { status: 500 },
-    );
+    const message =
+      error instanceof Error ? error.message : "Failed to create checkout session";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
