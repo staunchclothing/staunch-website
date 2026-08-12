@@ -90,8 +90,7 @@ export default async function ProductPage({
           </div>
 
           <p className="mt-6 text-xs leading-relaxed text-staunch-muted">
-            {FREE_SHIPPING_DETAIL} US delivery is also free on orders of £65 or
-            more. Dispatched within 2–3 working days.
+            {FREE_SHIPPING_DETAIL} Dispatched within 2–3 working days.
           </p>
         </div>
       </div>

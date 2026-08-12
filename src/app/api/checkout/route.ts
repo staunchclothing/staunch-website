@@ -5,6 +5,7 @@ import { getProductById } from "@/lib/products";
 import {
   isFreeShippingEligible,
   UK_STANDARD_SHIPPING,
+  US_STANDARD_SHIPPING,
 } from "@/lib/shipping";
 import { getStripe } from "@/lib/stripe";
 import type { CartItem } from "@/types";
@@ -82,13 +83,16 @@ export async function POST(request: Request) {
             shippingRate("Free UK shipping", 0, 2, 5),
             shippingRate("Free US shipping", 0, 5, 14),
           ]
-        : [shippingRate("Standard UK delivery", UK_STANDARD_SHIPPING, 2, 5)];
+        : [
+            shippingRate("Standard UK delivery", UK_STANDARD_SHIPPING, 2, 5),
+            shippingRate("Standard US delivery", US_STANDARD_SHIPPING, 5, 14),
+          ];
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
       shipping_address_collection: {
-        allowed_countries: freeShipping ? ["GB", "US"] : ["GB"],
+        allowed_countries: ["GB", "US"],
       },
       shipping_options: shippingOptions,
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,

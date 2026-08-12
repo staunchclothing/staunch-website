@@ -50,8 +50,7 @@ export default function ContactPage() {
                 Shipping
               </p>
               <p className="mt-1 text-sm leading-relaxed text-staunch-muted">
-                {FREE_SHIPPING_DETAIL} US delivery is also free on orders of £65
-                or more. Dispatched within 2–3 working days.
+                {FREE_SHIPPING_DETAIL} Dispatched within 2–3 working days.
               </p>
             </div>
             <div>

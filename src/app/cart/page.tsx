@@ -9,7 +9,6 @@ import { formatPrice } from "@/lib/products";
 import {
   freeShippingRemaining,
   isFreeShippingEligible,
-  UK_STANDARD_SHIPPING,
 } from "@/lib/shipping";
 
 export default function CartPage() {
@@ -186,20 +185,23 @@ export default function CartPage() {
           <div className="mt-2 flex justify-between text-sm">
             <span className="text-staunch-muted">Shipping</span>
             <span className="font-medium text-staunch-fg">
-              {isFreeShippingEligible(subtotal)
-                ? "Free"
-                : formatPrice(UK_STANDARD_SHIPPING)}
+              {isFreeShippingEligible(subtotal) ? "Free" : "At checkout"}
             </span>
           </div>
+          {!isFreeShippingEligible(subtotal) && (
+            <p className="mt-1 text-xs text-staunch-muted">
+              Standard delivery: £4.95 UK · £14.95 US
+            </p>
+          )}
           <div className="mt-4 flex justify-between border-t border-staunch-border pt-4 text-base font-medium">
             <span>Total</span>
-            <span>
-              {formatPrice(
-                subtotal +
-                  (isFreeShippingEligible(subtotal) ? 0 : UK_STANDARD_SHIPPING),
-              )}
-            </span>
+            <span>{formatPrice(subtotal)}</span>
           </div>
+          {!isFreeShippingEligible(subtotal) && (
+            <p className="mt-1 text-xs text-staunch-muted">
+              Shipping added at checkout
+            </p>
+          )}
 
           {error && (
             <p className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">

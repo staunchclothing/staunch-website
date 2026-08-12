@@ -44,7 +44,7 @@ export default function AboutPage() {
         {[
           { stat: "100%", label: "Cotton fabric" },
           { stat: "180gsm", label: "Heavyweight cotton" },
-          { stat: "2023", label: "Est. year" },
+          { stat: "2023", label: "Est." },
         ].map((item) => (
           <div
             key={item.label}
