@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl lg:grid-cols-2">
           <div className="flex flex-col justify-center px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-              Est. 2025
+              Est. 2023
             </p>
             <h1 className="font-display mt-4 text-5xl font-bold uppercase leading-[0.95] tracking-tight text-staunch-fg sm:text-6xl lg:text-7xl">
               Built for

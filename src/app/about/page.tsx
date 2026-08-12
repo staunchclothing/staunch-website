@@ -37,9 +37,9 @@ export default function AboutPage() {
 
       <div className="mt-16 grid gap-6 sm:grid-cols-3">
         {[
+          { stat: "100%", label: "Cotton fabric" },
           { stat: "180gsm", label: "Heavyweight cotton" },
-          { stat: "100%", label: "Cotton construction" },
-          { stat: "2025", label: "Est. year" },
+          { stat: "2023", label: "Est. year" },
         ].map((item) => (
           <div
             key={item.label}
