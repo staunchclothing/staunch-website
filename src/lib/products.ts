@@ -25,12 +25,12 @@ export const products: Product[] = [
   {
     id: "staunch-tee-white",
     slug: "heavyweight-tee-white",
-    name: "Heavyweight Tee — White",
+    name: "White Heavyweight T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
       "100% cotton",
-      "Heavyweight 240gsm fabric",
+      "180gsm fabric",
       "Screen-printed Staunch logo",
       "Relaxed fit",
     ],
@@ -43,12 +43,12 @@ export const products: Product[] = [
   {
     id: "staunch-tee-black",
     slug: "heavyweight-tee-black",
-    name: "Heavyweight Tee — Black",
+    name: "Black Heavyweight T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
       "100% cotton",
-      "Heavyweight 240gsm fabric",
+      "180gsm fabric",
       "Screen-printed Staunch logo",
       "Relaxed fit",
     ],

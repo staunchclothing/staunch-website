@@ -100,7 +100,7 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     const secondProduct = getProductById(second.productId)!;
 
     lineItems.push({
-      name: "Heavyweight Tee — 2 for £65",
+      name: "Heavyweight T-Shirt — 2 for £65",
       description: `${firstProduct.color} (${first.size}), ${secondProduct.color} (${second.size})`,
       unitAmount: TEE_PAIR_PRICE,
       quantity: 1,

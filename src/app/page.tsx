@@ -87,11 +87,11 @@ export default function HomePage() {
           {[
             {
               title: "100% Cotton",
-              text: "Premium heavyweight fabric that feels solid from day one and holds up wash after wash.",
+              text: "Premium fabric that feels solid from day one and holds up wash after wash.",
             },
             {
               title: "Built to Last",
-              text: "Reinforced construction and quality screen printing — kit that earns its place in your rotation.",
+              text: "Heavyweight 180gsm fabric and quality screen printing. Kit that earns its place in your rotation.",
             },
             {
               title: "For Hard Workers",
@@ -117,7 +117,7 @@ export default function HomePage() {
               Wear the oxen
             </h2>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-staunch-muted sm:text-base">
-              The Staunch cap — structured, embroidered with the oxen logo, and
+              The Staunch cap is structured, embroidered with the oxen logo, and
               ready for the site, the yard, or the pub after a long day.
             </p>
           </div>
