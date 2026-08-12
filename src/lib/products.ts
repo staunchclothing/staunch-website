@@ -1,6 +1,6 @@
 import type { Product } from "@/types";
 
-export const CONTACT_EMAIL = "info@staunchservices.co.uk";
+export const CONTACT_EMAIL = "info@staunchco.uk";
 
 export const products: Product[] = [
   {

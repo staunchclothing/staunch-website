@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "The story behind Staunch — quality kit for hardworking people.",
+  description:
+    "The Staunch Origins — loyalty, courage, hard work, and resilience.",
 };
 
 export default function AboutPage() {
@@ -13,24 +14,28 @@ export default function AboutPage() {
           About
         </p>
         <h1 className="font-display mt-2 text-4xl font-bold uppercase tracking-tight sm:text-5xl">
-          Built Staunch
+          The Staunch Origins
         </h1>
         <div className="mt-8 space-y-6 text-sm leading-relaxed text-staunch-muted sm:text-base">
           <p>
-            Staunch started with a simple idea: hardworking people deserve kit
-            that matches their standards. Not fast fashion. Not thin, shapeless
-            tees that fall apart after a few washes. Proper gear.
+            We are building a brand that is tied to a set of values.
+          </p>
+          <p className="font-medium text-staunch-fg">
+            Loyalty, Courage, Hard Work and Resilience.
           </p>
           <p>
-            Every Staunch product is made from 100% cotton heavyweight fabric —
-            thick enough to feel premium, durable enough for real work. Our tees
-            and caps carry the Staunch oxen because they&apos;re built for people
-            who show up, day in and day out.
+            These values represent a way of being that is increasingly rare
+            today: standing by your people, pushing yourself, earning your
+            stripes, and seeing things through. We want to create something
+            that represents a mindset. The clothes are simply an extension of
+            it.
           </p>
           <p>
-            Whether you&apos;re on site, in the workshop, or grabbing a pint after
-            a long shift, Staunch is kit you can rely on. No nonsense. No
-            compromise.
+            Just remember what you are championing every time you wear the
+            shirt.
+          </p>
+          <p className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
+            Staunch. Wear the ox. Wear it hard.
           </p>
         </div>
       </div>
