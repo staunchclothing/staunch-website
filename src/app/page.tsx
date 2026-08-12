@@ -2,10 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HeroLogoStack } from "@/components/Logo";
 import { ProductCard } from "@/components/ProductCard";
+import { TAGLINE } from "@/lib/brand";
 import { products } from "@/lib/products";
-
-const TAGLINE =
-  "High quality 100% cotton heavyweight tees and caps for hardworking people, whether on the tools, on the trail, or pushing past the limit. Built tough. Built Staunch.";
 
 export default function HomePage() {
   return (
@@ -129,14 +127,6 @@ export default function HomePage() {
           >
             Shop the cap
           </Link>
-        </div>
-      </section>
-
-      <section className="border-t border-staunch-border bg-staunch-bg">
-        <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-20">
-          <p className="text-base leading-relaxed text-staunch-muted sm:text-lg">
-            {TAGLINE}
-          </p>
         </div>
       </section>
     </>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TAGLINE } from "@/lib/brand";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -8,9 +9,8 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
             <Logo variant="wordmark" blendWith="bg" />
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-staunch-muted">
-              High quality 100% cotton heavyweight tees and caps for hardworking
-              people. Built tough. Built Staunch.
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-staunch-muted">
+              {TAGLINE}
             </p>
             <p className="mt-3 text-sm font-medium text-staunch-fg">
               Free shipping on all UK orders.
