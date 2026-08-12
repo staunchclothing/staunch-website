@@ -70,7 +70,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-staunch-border pt-8 text-xs text-staunch-muted sm:flex-row sm:justify-between">
           <p>&copy; {new Date().getFullYear()} Staunch. All rights reserved.</p>
-          <p>Est. 2023 — For the hardworking.</p>
+          <p>Est. 2023</p>
         </div>
       </div>
     </footer>
