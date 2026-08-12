@@ -5,6 +5,7 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { ProductImage } from "@/components/ProductImage";
 import { formatPrice, getProductBySlug, products } from "@/lib/products";
 import { TEE_PAIR_PRICE } from "@/lib/pricing";
+import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -89,8 +90,8 @@ export default async function ProductPage({
           </div>
 
           <p className="mt-6 text-xs leading-relaxed text-staunch-muted">
-            Free shipping on all UK orders. Free US shipping on orders of £65
-            or more. Dispatched within 2–3 working days.
+            {FREE_SHIPPING_DETAIL} US delivery is also free on orders of £65 or
+            more. Dispatched within 2–3 working days.
           </p>
         </div>
       </div>

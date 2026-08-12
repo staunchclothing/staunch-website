@@ -2,18 +2,22 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { buildCheckoutLineItems } from "@/lib/pricing";
 import { getProductById } from "@/lib/products";
+import {
+  isFreeShippingEligible,
+  UK_STANDARD_SHIPPING,
+} from "@/lib/shipping";
 import { getStripe } from "@/lib/stripe";
-import { isUsShippingEligible } from "@/lib/shipping";
 import type { CartItem } from "@/types";
 
-const freeShippingRate = (
+const shippingRate = (
   displayName: string,
+  amountPence: number,
   minDays: number,
   maxDays: number,
 ): Stripe.Checkout.SessionCreateParams.ShippingOption => ({
   shipping_rate_data: {
     type: "fixed_amount",
-    fixed_amount: { amount: 0, currency: "gbp" },
+    fixed_amount: { amount: amountPence, currency: "gbp" },
     display_name: displayName,
     delivery_estimate: {
       minimum: { unit: "business_day", value: minDays },
@@ -71,19 +75,20 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "http://localhost:3000";
 
-    const usEligible = isUsShippingEligible(subtotal);
+    const freeShipping = isFreeShippingEligible(subtotal);
     const shippingOptions: Stripe.Checkout.SessionCreateParams.ShippingOption[] =
-      [freeShippingRate("Free UK shipping", 2, 5)];
-
-    if (usEligible) {
-      shippingOptions.push(freeShippingRate("Free US shipping", 5, 14));
-    }
+      freeShipping
+        ? [
+            shippingRate("Free UK shipping", 0, 2, 5),
+            shippingRate("Free US shipping", 0, 5, 14),
+          ]
+        : [shippingRate("Standard UK delivery", UK_STANDARD_SHIPPING, 2, 5)];
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
       shipping_address_collection: {
-        allowed_countries: usEligible ? ["GB", "US"] : ["GB"],
+        allowed_countries: freeShipping ? ["GB", "US"] : ["GB"],
       },
       shipping_options: shippingOptions,
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,

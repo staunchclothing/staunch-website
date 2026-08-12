@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TAGLINE } from "@/lib/brand";
+import { FREE_SHIPPING_SHORT } from "@/lib/shipping";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -13,7 +14,7 @@ export function Footer() {
               {TAGLINE}
             </p>
             <p className="mt-3 text-sm font-medium text-staunch-fg">
-              Free shipping on all UK orders.
+              {FREE_SHIPPING_SHORT}
             </p>
           </div>
 

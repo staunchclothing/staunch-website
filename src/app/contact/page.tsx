@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CONTACT_EMAIL } from "@/lib/products";
+import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -49,8 +50,8 @@ export default function ContactPage() {
                 Shipping
               </p>
               <p className="mt-1 text-sm leading-relaxed text-staunch-muted">
-                Free shipping on all UK orders. Free US shipping on orders of
-                £65 or more. Dispatched within 2–3 working days.
+                {FREE_SHIPPING_DETAIL} US delivery is also free on orders of £65
+                or more. Dispatched within 2–3 working days.
               </p>
             </div>
             <div>

@@ -55,7 +55,7 @@ export default function HomePage() {
               Shop essentials
             </h2>
             <p className="mt-2 text-sm text-staunch-accent">
-              Tees £35 each — 2 for £65 · Free UK shipping
+              Tees £35 each — 2 for £65 · Free shipping on orders over £65
             </p>
           </div>
           <Link

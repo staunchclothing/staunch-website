@@ -7,8 +7,9 @@ import { ProductImage } from "@/components/ProductImage";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/products";
 import {
-  isUsShippingEligible,
-  US_SHIPPING_MINIMUM,
+  freeShippingRemaining,
+  isFreeShippingEligible,
+  UK_STANDARD_SHIPPING,
 } from "@/lib/shipping";
 
 export default function CartPage() {
@@ -171,24 +172,33 @@ export default function CartPage() {
               Add another tee to get 2 for £65
             </p>
           )}
-          {!isUsShippingEligible(subtotal) && subtotal > 0 && (
+          {!isFreeShippingEligible(subtotal) && subtotal > 0 && (
             <p className="mt-3 text-xs text-staunch-muted">
-              Spend {formatPrice(US_SHIPPING_MINIMUM - subtotal)} more for free
-              US delivery
+              Spend {formatPrice(freeShippingRemaining(subtotal))} more for free
+              shipping
             </p>
           )}
-          {isUsShippingEligible(subtotal) && (
+          {isFreeShippingEligible(subtotal) && (
             <p className="mt-3 text-xs text-staunch-accent">
-              Free US delivery available on this order
+              You&apos;ve qualified for free shipping
             </p>
           )}
           <div className="mt-2 flex justify-between text-sm">
             <span className="text-staunch-muted">Shipping</span>
-            <span className="font-medium text-staunch-fg">Free</span>
+            <span className="font-medium text-staunch-fg">
+              {isFreeShippingEligible(subtotal)
+                ? "Free"
+                : formatPrice(UK_STANDARD_SHIPPING)}
+            </span>
           </div>
           <div className="mt-4 flex justify-between border-t border-staunch-border pt-4 text-base font-medium">
             <span>Total</span>
-            <span>{formatPrice(subtotal)}</span>
+            <span>
+              {formatPrice(
+                subtotal +
+                  (isFreeShippingEligible(subtotal) ? 0 : UK_STANDARD_SHIPPING),
+              )}
+            </span>
           </div>
 
           {error && (
