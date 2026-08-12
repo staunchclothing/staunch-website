@@ -4,6 +4,9 @@ import { HeroLogoStack } from "@/components/Logo";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/products";
 
+const TAGLINE =
+  "High quality 100% cotton heavyweight tees and caps for hardworking people, whether on the tools, on the trail, or pushing past the limit. Built tough. Built Staunch.";
+
 export default function HomePage() {
   return (
     <>
@@ -18,9 +21,8 @@ export default function HomePage() {
               <br />
               Hard Work
             </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-staunch-muted sm:text-lg">
-              100% cotton heavyweight tees and structured caps for people who
-              show up, put in the graft, and expect their kit to keep up.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-staunch-muted sm:text-lg">
+              {TAGLINE}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -127,6 +129,14 @@ export default function HomePage() {
           >
             Shop the cap
           </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-staunch-border bg-staunch-bg">
+        <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-20">
+          <p className="text-base leading-relaxed text-staunch-muted sm:text-lg">
+            {TAGLINE}
+          </p>
         </div>
       </section>
     </>
