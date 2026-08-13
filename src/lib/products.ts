@@ -1,4 +1,4 @@
-import type { Product } from "@/types";
+import type { Product, Size } from "@/types";
 
 export const CONTACT_EMAIL = "info@staunchco.uk";
 
