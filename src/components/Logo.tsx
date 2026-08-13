@@ -48,7 +48,7 @@ function LogoImage({
         alt={decorative ? "" : alt}
         width={width}
         height={height}
-        className={cn("block h-auto max-h-none w-auto mix-blend-multiply", imageClassName)}
+        className={cn("block mix-blend-multiply", imageClassName)}
         priority
       />
     </span>
@@ -59,10 +59,12 @@ function Wordmark({
   className,
   widthClassName = "w-28 sm:w-40",
   blendWith = "bg",
+  constrainWidth = false,
 }: {
   className?: string;
   widthClassName?: string;
   blendWith?: BlendBackground;
+  constrainWidth?: boolean;
 }) {
   return (
     <LogoImage
@@ -70,7 +72,7 @@ function Wordmark({
       alt="Staunch"
       width={WORDMARK_WIDTH}
       height={WORDMARK_HEIGHT}
-      imageClassName={cn(widthClassName, "max-w-full")}
+      imageClassName={cn(widthClassName, constrainWidth && "max-w-full")}
       wrapperClassName={className}
       blendWith={blendWith}
     />
@@ -104,6 +106,7 @@ export function Logo({
         className={className}
         widthClassName={wordmarkClassName}
         blendWith={blendWith}
+        constrainWidth
       />
     );
   }
@@ -120,10 +123,7 @@ export function Logo({
         alt="Staunch oxen logo"
         width={120}
         height={60}
-        imageClassName={cn(
-          "h-8 w-auto sm:h-[3.5rem]",
-          oxenClassName,
-        )}
+        imageClassName={cn("h-8 w-auto sm:h-[3.5rem]", oxenClassName)}
         decorative
         blendWith={blendWith}
       />
@@ -159,7 +159,11 @@ export function HeroLogoStack({ className }: { className?: string }) {
         />
       </div>
       <div className={cn("mt-8", stackWidth)}>
-        <Wordmark className="block w-full" widthClassName="w-full" />
+        <Wordmark
+          className="block w-full"
+          widthClassName="h-auto w-full"
+          constrainWidth
+        />
       </div>
     </div>
   );
