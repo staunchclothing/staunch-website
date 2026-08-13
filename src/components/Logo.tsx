@@ -128,7 +128,7 @@ export function Logo({
         blendWith={blendWith}
       />
       <Wordmark
-        widthClassName={cn("w-[5.75rem] sm:w-[10.5rem]", wordmarkClassName)}
+        widthClassName={cn("w-[4rem] sm:w-[10.5rem]", wordmarkClassName)}
         blendWith={blendWith}
       />
     </span>
@@ -136,6 +136,8 @@ export function Logo({
 }
 
 export function HeroLogoStack({ className }: { className?: string }) {
+  const stackWidth = "w-full max-w-[200px] sm:max-w-[280px]";
+
   return (
     <div
       className={cn(
@@ -143,18 +145,19 @@ export function HeroLogoStack({ className }: { className?: string }) {
         className,
       )}
     >
-      <LogoImage
-        src="/logos/oxen.png"
-        alt="Staunch oxen logo"
-        width={320}
-        height={160}
-        wrapperClassName="flex w-full justify-center"
-        imageClassName="mx-auto w-full max-w-[220px] sm:max-w-[280px]"
-      />
-      <Wordmark
-        className="mt-8 flex w-full justify-center"
-        widthClassName="w-full max-w-[220px] sm:max-w-[300px]"
-      />
+      <div className={stackWidth}>
+        <LogoImage
+          src="/logos/oxen.png"
+          alt="Staunch oxen logo"
+          width={320}
+          height={160}
+          wrapperClassName="block w-full"
+          imageClassName="mx-auto h-auto w-full"
+        />
+      </div>
+      <div className={cn("mt-8", stackWidth)}>
+        <Wordmark className="block w-full" widthClassName="w-full" />
+      </div>
     </div>
   );
 }
