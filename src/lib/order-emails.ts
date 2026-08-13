@@ -16,7 +16,7 @@ function getTransporter() {
   });
 }
 
-function formatSendError(error: unknown): string {
+export function formatSendError(error: unknown): string {
   if (!(error instanceof Error)) return "Failed to send order emails";
 
   const smtpError = error as Error & { code?: string; response?: string };
