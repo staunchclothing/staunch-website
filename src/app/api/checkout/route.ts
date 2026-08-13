@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { buildCheckoutLineItems } from "@/lib/pricing";
-import { getProductById } from "@/lib/products";
+import { getProductById, isSizeAvailable } from "@/lib/products";
 import {
   isFreeShippingEligible,
   UK_STANDARD_SHIPPING,
@@ -43,9 +43,16 @@ export async function POST(request: Request) {
     }
 
     for (const item of items) {
-      if (!getProductById(item.productId)) {
+      const product = getProductById(item.productId);
+      if (!product) {
         return NextResponse.json(
           { error: `Product not found: ${item.productId}` },
+          { status: 400 },
+        );
+      }
+      if (!isSizeAvailable(product, item.size)) {
+        return NextResponse.json(
+          { error: `${product.name} (${item.size}) is sold out` },
           { status: 400 },
         );
       }

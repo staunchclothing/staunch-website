@@ -10,6 +10,7 @@ export interface Product {
   category: "tee" | "cap";
   color: string;
   sizes: Size[];
+  soldOutSizes?: Size[];
   image: string;
   images?: string[];
 }

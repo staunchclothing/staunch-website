@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { getProductById } from "@/lib/products";
+import { getProductById, isSizeAvailable } from "@/lib/products";
 import { calculateCartPricing } from "@/lib/pricing";
 import { cartItemKey } from "@/lib/utils";
 import type { CartItem, CartLine, Product, Size } from "@/types";
@@ -55,6 +55,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addItem = useCallback(
     (product: Product, size: Size, quantity = 1) => {
+      if (!isSizeAvailable(product, size)) return;
+
       setItems((current) => {
         const existing = current.find(
           (item) =>

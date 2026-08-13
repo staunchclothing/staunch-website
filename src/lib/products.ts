@@ -38,6 +38,7 @@ export const products: Product[] = [
     category: "tee",
     color: "White",
     sizes: ["L", "XL", "XXL"],
+    soldOutSizes: ["L", "XXL"],
     image: "/products/tee-white.png",
   },
   {
@@ -56,6 +57,7 @@ export const products: Product[] = [
     category: "tee",
     color: "Black",
     sizes: ["L", "XL", "XXL"],
+    soldOutSizes: ["L", "XXL"],
     image: "/products/tee-black.png",
   },
 ];
@@ -66,6 +68,16 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
+}
+
+export function isSizeAvailable(product: Product, size: Size): boolean {
+  return (
+    product.sizes.includes(size) && !product.soldOutSizes?.includes(size)
+  );
+}
+
+export function getAvailableSizes(product: Product): Size[] {
+  return product.sizes.filter((size) => isSizeAvailable(product, size));
 }
 
 export function formatPrice(pence: number): string {
