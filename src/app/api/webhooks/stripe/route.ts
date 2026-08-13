@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { sendOrderEmails } from "@/lib/order-emails";
+import { formatSendError, sendOrderEmails } from "@/lib/order-emails";
 import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
@@ -44,8 +44,7 @@ export async function POST(request: Request) {
 
       await sendOrderEmails(fullSession);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Failed to send order emails";
+      const message = formatSendError(error);
       console.error("Failed to send order emails:", error);
       return NextResponse.json({ error: message }, { status: 500 });
     }

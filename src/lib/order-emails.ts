@@ -7,17 +7,25 @@ function getTransporter() {
   const pass = process.env.SMTP_PASS?.trim().replace(/\s/g, "");
 
   if (!user || !pass) {
-    throw new Error("SMTP_USER and SMTP_PASS must be configured");
+    throw new Error("SMTP_USER and SMTP_PASS must be configured in Vercel");
   }
 
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST?.trim() || "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: false,
-    requireTLS: true,
+    service: "gmail",
     auth: { user, pass },
-    connectionTimeout: 15_000,
   });
+}
+
+function formatSendError(error: unknown): string {
+  if (!(error instanceof Error)) return "Failed to send order emails";
+
+  const smtpError = error as Error & { code?: string; response?: string };
+  const parts = [error.message];
+
+  if (smtpError.code) parts.push(`code: ${smtpError.code}`);
+  if (smtpError.response) parts.push(String(smtpError.response).trim());
+
+  return parts.join(" | ");
 }
 
 function getShippingDetails(session: Stripe.Checkout.Session) {
@@ -169,7 +177,7 @@ export async function sendOrderEmails(session: Stripe.Checkout.Session) {
   const businessMail = buildBusinessEmail(session);
 
   await transporter.sendMail({
-    from: `Staunch <${from}>`,
+    from: `"Staunch" <${from}>`,
     to: customerEmail,
     replyTo: CONTACT_EMAIL,
     subject: customerMail.subject,
@@ -178,7 +186,7 @@ export async function sendOrderEmails(session: Stripe.Checkout.Session) {
   });
 
   await transporter.sendMail({
-    from: `Staunch Orders <${from}>`,
+    from: `"Staunch Orders" <${from}>`,
     to: businessEmail,
     replyTo: customerEmail,
     subject: businessMail.subject,
