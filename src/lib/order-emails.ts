@@ -4,7 +4,7 @@ import { CONTACT_EMAIL, formatPrice } from "@/lib/products";
 
 function getTransporter() {
   const user = process.env.SMTP_USER?.trim();
-  const pass = process.env.SMTP_PASS?.trim();
+  const pass = process.env.SMTP_PASS?.trim().replace(/\s/g, "");
 
   if (!user || !pass) {
     throw new Error("SMTP_USER and SMTP_PASS must be configured");
@@ -14,7 +14,9 @@ function getTransporter() {
     host: process.env.SMTP_HOST?.trim() || "smtp.gmail.com",
     port: Number(process.env.SMTP_PORT || 587),
     secure: false,
+    requireTLS: true,
     auth: { user, pass },
+    connectionTimeout: 15_000,
   });
 }
 
@@ -152,7 +154,8 @@ Total paid: ${total}`;
 }
 
 export async function sendOrderEmails(session: Stripe.Checkout.Session) {
-  const customerEmail = session.customer_details?.email;
+  const customerEmail =
+    session.customer_details?.email ?? session.customer_email ?? null;
 
   if (!customerEmail) {
     throw new Error("Checkout session is missing customer email");

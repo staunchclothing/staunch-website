@@ -44,11 +44,10 @@ export async function POST(request: Request) {
 
       await sendOrderEmails(fullSession);
     } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to send order emails";
       console.error("Failed to send order emails:", error);
-      return NextResponse.json(
-        { error: "Failed to send order emails" },
-        { status: 500 },
-      );
+      return NextResponse.json({ error: message }, { status: 500 });
     }
   }
 
