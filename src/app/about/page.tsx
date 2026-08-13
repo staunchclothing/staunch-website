@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,34 +10,47 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-          About
-        </p>
-        <h1 className="font-display mt-2 text-4xl font-bold uppercase tracking-tight sm:text-5xl">
-          The Staunch Origins
-        </h1>
-        <div className="mt-8 space-y-6 text-sm leading-relaxed text-staunch-muted sm:text-base">
-          <p>
-            We are building a brand that is tied to a set of values.
+      <div className="grid gap-12 lg:grid-cols-[1fr_340px] lg:items-start lg:gap-16">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
+            About
           </p>
-          <p className="font-medium text-staunch-fg">
-            Loyalty, Courage, Hard Work and Resilience.
-          </p>
-          <p>
-            These values represent a way of being that is increasingly rare
-            today: standing by your people, pushing yourself, earning your
-            stripes, and seeing things through. We want to create something
-            that represents a mindset. The clothes are simply an extension of
-            it.
-          </p>
-          <p>
-            Just remember what you are championing every time you wear the
-            shirt.
-          </p>
-          <p className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
-            Staunch. Wear the ox. Wear it hard.
-          </p>
+          <h1 className="font-display mt-2 text-4xl font-bold uppercase tracking-tight sm:text-5xl">
+            The Staunch Origins
+          </h1>
+          <div className="mt-8 space-y-6 text-sm leading-relaxed text-staunch-muted sm:text-base">
+            <p>
+              We are building a brand that is tied to a set of values.
+            </p>
+            <p className="font-medium text-staunch-fg">
+              Loyalty, Courage, Hard Work and Resilience.
+            </p>
+            <p>
+              These values represent a way of being that is increasingly rare
+              today: standing by your people, pushing yourself, earning your
+              stripes, and seeing things through. We want to create something
+              that represents a mindset. The clothes are simply an extension of
+              it.
+            </p>
+            <p>
+              Just remember what you are championing every time you wear the
+              shirt.
+            </p>
+            <p className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
+              Staunch. Wear the ox. Wear it hard.
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-staunch-border lg:sticky lg:top-24">
+          <Image
+            src="/about/origins.png"
+            alt="Staunch founders in the mountains"
+            width={850}
+            height={1024}
+            className="h-auto w-full object-cover"
+            priority
+          />
         </div>
       </div>
 
