@@ -1,6 +1,11 @@
 import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import type Stripe from "stripe";
 import { CONTACT_EMAIL, formatPrice } from "@/lib/products";
+
+function getFromAddress(): string {
+  return process.env.EMAIL_FROM?.trim() || `Staunch <${CONTACT_EMAIL}>`;
+}
 
 function getTransporter() {
   const user = process.env.SMTP_USER?.trim();
@@ -122,7 +127,7 @@ function buildBusinessEmail(session: Stripe.Checkout.Session) {
     shippingDetails?.name ?? session.customer_details?.name,
   );
 
-  const subject = `New Staunch order ${orderRef}`;
+  const subject = `New Staunch order ${orderRef} — ${customerEmail}`;
   const text = `New order received.
 
 Order reference: ${orderRef}
@@ -161,6 +166,74 @@ Total paid: ${total}`;
   return { subject, text, html };
 }
 
+async function sendViaResend(
+  session: Stripe.Checkout.Session,
+  customerEmail: string,
+  businessEmail: string,
+) {
+  const resend = new Resend(process.env.RESEND_API_KEY!.trim());
+  const from = getFromAddress();
+  const customerMail = buildCustomerEmail(session);
+  const businessMail = buildBusinessEmail(session);
+
+  const customerResult = await resend.emails.send({
+    from,
+    to: customerEmail,
+    bcc: [businessEmail],
+    replyTo: CONTACT_EMAIL,
+    subject: customerMail.subject,
+    html: customerMail.html,
+    text: customerMail.text,
+  });
+
+  if (customerResult.error) {
+    throw new Error(`Customer email failed: ${customerResult.error.message}`);
+  }
+
+  const businessResult = await resend.emails.send({
+    from,
+    to: businessEmail,
+    replyTo: customerEmail,
+    subject: businessMail.subject,
+    html: businessMail.html,
+    text: businessMail.text,
+  });
+
+  if (businessResult.error) {
+    throw new Error(`Business email failed: ${businessResult.error.message}`);
+  }
+}
+
+async function sendViaSmtp(
+  session: Stripe.Checkout.Session,
+  customerEmail: string,
+  businessEmail: string,
+) {
+  const fromEmail = process.env.SMTP_FROM?.trim() || CONTACT_EMAIL;
+  const transporter = getTransporter();
+  const customerMail = buildCustomerEmail(session);
+  const businessMail = buildBusinessEmail(session);
+
+  await transporter.sendMail({
+    from: `"Staunch" <${fromEmail}>`,
+    to: customerEmail,
+    bcc: businessEmail,
+    replyTo: CONTACT_EMAIL,
+    subject: customerMail.subject,
+    text: customerMail.text,
+    html: customerMail.html,
+  });
+
+  await transporter.sendMail({
+    from: `"Staunch Orders" <${fromEmail}>`,
+    to: businessEmail,
+    replyTo: customerEmail,
+    subject: businessMail.subject,
+    text: businessMail.text,
+    html: businessMail.html,
+  });
+}
+
 export async function sendOrderEmails(session: Stripe.Checkout.Session) {
   const customerEmail =
     session.customer_details?.email ?? session.customer_email ?? null;
@@ -169,28 +242,13 @@ export async function sendOrderEmails(session: Stripe.Checkout.Session) {
     throw new Error("Checkout session is missing customer email");
   }
 
-  const from = process.env.SMTP_FROM?.trim() || CONTACT_EMAIL;
   const businessEmail = process.env.BUSINESS_EMAIL?.trim() || CONTACT_EMAIL;
-  const transporter = getTransporter();
+  const resendKey = process.env.RESEND_API_KEY?.trim();
 
-  const customerMail = buildCustomerEmail(session);
-  const businessMail = buildBusinessEmail(session);
+  if (resendKey) {
+    await sendViaResend(session, customerEmail, businessEmail);
+    return;
+  }
 
-  await transporter.sendMail({
-    from: `"Staunch" <${from}>`,
-    to: customerEmail,
-    replyTo: CONTACT_EMAIL,
-    subject: customerMail.subject,
-    text: customerMail.text,
-    html: customerMail.html,
-  });
-
-  await transporter.sendMail({
-    from: `"Staunch Orders" <${from}>`,
-    to: businessEmail,
-    replyTo: customerEmail,
-    subject: businessMail.subject,
-    text: businessMail.text,
-    html: businessMail.html,
-  });
+  await sendViaSmtp(session, customerEmail, businessEmail);
 }
