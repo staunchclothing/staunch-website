@@ -20,9 +20,8 @@ export default function SuccessPage() {
         Order confirmed
       </h1>
       <p className="mt-4 text-sm leading-relaxed text-staunch-muted sm:text-base">
-        Thanks for your order. You&apos;ll receive a confirmation email from
-        Stripe shortly. We&apos;ll dispatch your Staunch gear within 2–3 working
-        days.
+        Thanks for your order. A confirmation email is on its way to you now.
+        We&apos;ll dispatch your Staunch gear within 2–3 working days.
       </p>
       <Link
         href="/shop"
