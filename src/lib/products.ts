@@ -4,25 +4,6 @@ export const CONTACT_EMAIL = "info@staunchco.uk";
 
 export const products: Product[] = [
   {
-    id: "staunch-cap",
-    slug: "staunch-cap",
-    name: "Staunch Cap",
-    description:
-      "Structured six-panel cap with embroidered Staunch oxen logo. Built for long days and hard graft.",
-    details: [
-      "Adjustable strap",
-      "Embroidered oxen logo",
-      "Durable cotton twill",
-      "One size fits most",
-    ],
-    price: 4000,
-    category: "cap",
-    color: "Black",
-    sizes: ["One Size"],
-    image: "/products/cap-front.png",
-    images: ["/products/cap-front.png", "/products/cap-back.png"],
-  },
-  {
     id: "staunch-tee-white",
     slug: "heavyweight-tee-white",
     name: "White Heavyweight T-Shirt",
@@ -59,6 +40,25 @@ export const products: Product[] = [
     sizes: ["L", "XL", "XXL"],
     soldOutSizes: ["L", "XXL"],
     image: "/products/tee-black.png",
+  },
+  {
+    id: "staunch-cap",
+    slug: "staunch-cap",
+    name: "Staunch Cap",
+    description:
+      "Structured six-panel cap with embroidered Staunch oxen logo. Built for long days and hard graft.",
+    details: [
+      "Adjustable strap",
+      "Embroidered oxen logo",
+      "Durable cotton twill",
+      "One size fits most",
+    ],
+    price: 4000,
+    category: "cap",
+    color: "Black",
+    sizes: ["One Size"],
+    image: "/products/cap-front.png",
+    images: ["/products/cap-front.png", "/products/cap-back.png"],
   },
 ];
 

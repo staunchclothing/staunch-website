@@ -11,6 +11,8 @@ interface LogoProps {
   className?: string;
   variant?: "full" | "oxen" | "wordmark";
   blendWith?: BlendBackground;
+  wordmarkClassName?: string;
+  oxenClassName?: string;
 }
 
 function LogoImage({
@@ -55,7 +57,7 @@ function LogoImage({
 
 function Wordmark({
   className,
-  widthClassName = "w-36 sm:w-40",
+  widthClassName = "w-28 sm:w-40",
   blendWith = "bg",
 }: {
   className?: string;
@@ -75,7 +77,13 @@ function Wordmark({
   );
 }
 
-export function Logo({ className, variant = "full", blendWith = "bg" }: LogoProps) {
+export function Logo({
+  className,
+  variant = "full",
+  blendWith = "bg",
+  wordmarkClassName,
+  oxenClassName,
+}: LogoProps) {
   if (variant === "oxen") {
     return (
       <LogoImage
@@ -83,6 +91,7 @@ export function Logo({ className, variant = "full", blendWith = "bg" }: LogoProp
         alt="Staunch oxen logo"
         width={320}
         height={160}
+        imageClassName={cn("h-8 w-auto sm:h-10", oxenClassName)}
         wrapperClassName={className}
         blendWith={blendWith}
       />
@@ -90,13 +99,19 @@ export function Logo({ className, variant = "full", blendWith = "bg" }: LogoProp
   }
 
   if (variant === "wordmark") {
-    return <Wordmark className={className} blendWith={blendWith} />;
+    return (
+      <Wordmark
+        className={className}
+        widthClassName={wordmarkClassName}
+        blendWith={blendWith}
+      />
+    );
   }
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-3 bg-staunch-bg sm:gap-3.5",
+        "inline-flex items-center gap-2 bg-staunch-bg sm:gap-3.5",
         className,
       )}
     >
@@ -105,11 +120,17 @@ export function Logo({ className, variant = "full", blendWith = "bg" }: LogoProp
         alt="Staunch oxen logo"
         width={120}
         height={60}
-        imageClassName="h-[3rem] w-auto sm:h-[3.5rem]"
+        imageClassName={cn(
+          "h-8 w-auto sm:h-[3.5rem]",
+          oxenClassName,
+        )}
         decorative
         blendWith={blendWith}
       />
-      <Wordmark widthClassName="w-[8.5rem] sm:w-[10.5rem]" blendWith={blendWith} />
+      <Wordmark
+        widthClassName={cn("w-[5.75rem] sm:w-[10.5rem]", wordmarkClassName)}
+        blendWith={blendWith}
+      />
     </span>
   );
 }
@@ -128,11 +149,11 @@ export function HeroLogoStack({ className }: { className?: string }) {
         width={320}
         height={160}
         wrapperClassName="flex w-full justify-center"
-        imageClassName="mx-auto w-full max-w-[280px]"
+        imageClassName="mx-auto w-full max-w-[220px] sm:max-w-[280px]"
       />
       <Wordmark
         className="mt-8 flex w-full justify-center"
-        widthClassName="w-full max-w-[300px]"
+        widthClassName="w-full max-w-[220px] sm:max-w-[300px]"
       />
     </div>
   );

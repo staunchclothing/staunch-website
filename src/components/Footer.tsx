@@ -9,7 +9,11 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
-            <Logo variant="wordmark" blendWith="bg" />
+            <Logo
+              variant="wordmark"
+              blendWith="bg"
+              wordmarkClassName="w-28 sm:w-40"
+            />
             <p className="mt-4 max-w-md text-sm leading-relaxed text-staunch-muted">
               {TAGLINE}
             </p>
