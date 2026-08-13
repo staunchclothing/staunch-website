@@ -27,16 +27,22 @@ interface CartContextValue {
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
-const STORAGE_KEY = "staunch-cart";
+export const CART_STORAGE_KEY = "staunch-cart";
 
 function loadCart(): CartItem[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
     return raw ? (JSON.parse(raw) as CartItem[]) : [];
   } catch {
     return [];
   }
+}
+
+function shouldClearCartAfterCheckout(): boolean {
+  if (typeof window === "undefined") return false;
+  const { pathname, search } = window.location;
+  return pathname === "/success" && new URLSearchParams(search).has("session_id");
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
@@ -44,13 +50,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setItems(loadCart());
+    if (shouldClearCartAfterCheckout()) {
+      localStorage.removeItem(CART_STORAGE_KEY);
+      setItems([]);
+    } else {
+      setItems(loadCart());
+    }
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    if (items.length === 0) {
+      localStorage.removeItem(CART_STORAGE_KEY);
+      return;
+    }
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items, hydrated]);
 
   const addItem = useCallback(
@@ -100,7 +115,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [removeItem],
   );
 
-  const clearCart = useCallback(() => setItems([]), []);
+  const clearCart = useCallback(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(CART_STORAGE_KEY);
+    }
+    setItems([]);
+  }, []);
 
   const lines = useMemo<CartLine[]>(() => {
     return items
