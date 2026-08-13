@@ -7,11 +7,14 @@ import { getAvailableSizes, isSizeAvailable } from "@/lib/products";
 import type { Product, Size } from "@/types";
 import { cn } from "@/lib/utils";
 
+const MAX_QUANTITY = 10;
+
 export function AddToCartForm({ product }: { product: Product }) {
   const availableSizes = useMemo(() => getAvailableSizes(product), [product]);
   const [size, setSize] = useState<Size>(
     () => availableSizes[0] ?? product.sizes[0],
   );
+  const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const { addItem } = useCart();
   const router = useRouter();
@@ -19,7 +22,7 @@ export function AddToCartForm({ product }: { product: Product }) {
 
   function handleAdd() {
     if (!canPurchase) return;
-    addItem(product, size);
+    addItem(product, size, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
@@ -61,6 +64,28 @@ export function AddToCartForm({ product }: { product: Product }) {
         </div>
       )}
 
+      <div>
+        <label
+          htmlFor="quantity"
+          className="mb-3 block text-xs font-semibold uppercase tracking-[0.2em] text-staunch-muted"
+        >
+          Quantity
+        </label>
+        <select
+          id="quantity"
+          value={quantity}
+          disabled={!canPurchase}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          className="w-full max-w-[8rem] rounded-md border border-staunch-border bg-staunch-bg px-4 py-2.5 text-sm text-staunch-fg outline-none transition-colors focus:border-staunch-accent disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+        >
+          {Array.from({ length: MAX_QUANTITY }, (_, i) => i + 1).map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
@@ -74,7 +99,7 @@ export function AddToCartForm({ product }: { product: Product }) {
           type="button"
           disabled={!canPurchase}
           onClick={() => {
-            addItem(product, size);
+            addItem(product, size, quantity);
             router.push("/cart");
           }}
           className="rounded-md border border-staunch-border px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-staunch-fg transition-colors hover:border-staunch-accent hover:text-staunch-accent disabled:cursor-not-allowed disabled:opacity-50"
