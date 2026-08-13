@@ -19,25 +19,20 @@ export default function AboutPage() {
             The Staunch Origins
           </h1>
           <div className="mt-8 space-y-6 text-sm leading-relaxed text-staunch-muted sm:text-base">
-            <p>
-              We are building a brand that is tied to a set of values.
-            </p>
+            <p>We are building a British brand tied to a set of values.</p>
             <p className="font-medium text-staunch-fg">
               Loyalty, Courage, Hard Work and Resilience.
             </p>
             <p>
-              These values represent a way of being that is increasingly rare
-              today: standing by your people, pushing yourself, earning your
-              stripes, and seeing things through. We want to create something
-              that represents a mindset. The clothes are simply an extension of
-              it.
-            </p>
-            <p>
-              Just remember what you are championing every time you wear the
-              shirt.
+              Championing a way of being that is increasingly rare today:
+              standing by your people, pushing yourself, earning your stripes,
+              and seeing things through. Staunch is here to channel a mindset.
+              The kit is merely the extension of it: hard wearing, simplified
+              and dependable, designed to fly the colours throughout the most
+              arduous of tasks.
             </p>
             <p className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
-              Staunch. Wear the ox. Wear it hard.
+              Staunch on. Wear the ox. Wear it hard.
             </p>
           </div>
         </div>

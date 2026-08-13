@@ -114,7 +114,7 @@ export default function HomePage() {
         <div className="rounded-xl border border-staunch-border bg-staunch-surface p-8 sm:p-12 lg:flex lg:items-center lg:justify-between lg:gap-12">
           <div>
             <h2 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-              Wear the oxen
+              Wear the ox
             </h2>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-staunch-muted sm:text-base">
               The Staunch cap is structured, embroidered with the oxen logo, and
