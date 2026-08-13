@@ -128,7 +128,10 @@ export function Logo({
         blendWith={blendWith}
       />
       <Wordmark
-        widthClassName={cn("w-[4rem] sm:w-[10.5rem]", wordmarkClassName)}
+        widthClassName={cn(
+          "h-8 w-auto sm:h-auto sm:w-[10.5rem]",
+          wordmarkClassName,
+        )}
         blendWith={blendWith}
       />
     </span>
