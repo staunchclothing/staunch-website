@@ -32,7 +32,7 @@ export default function AboutPage() {
               arduous of tasks.
             </p>
             <p className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
-              Staunch on. Wear the ox. Wear it hard.
+              Staunch. Wear the ox. Wear it hard.
             </p>
           </div>
         </div>
