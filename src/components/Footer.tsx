@@ -50,7 +50,7 @@ export function Footer() {
                   href="/shop/staunch-bottle-opener"
                   className="hover:text-staunch-accent"
                 >
-                  Bottle opener
+                  The Staunch Opener
                 </Link>
               </li>
             </ul>

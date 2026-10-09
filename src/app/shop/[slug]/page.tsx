@@ -97,6 +97,12 @@ export default async function ProductPage({
           <p className="mt-6 text-xs leading-relaxed text-staunch-muted">
             {FREE_SHIPPING_DETAIL} Dispatched within 2–3 working days.
           </p>
+
+          {product.tagline && (
+            <p className="font-display mt-8 text-lg font-semibold uppercase tracking-wide text-staunch-fg sm:text-xl">
+              {product.tagline}
+            </p>
+          )}
         </div>
       </div>
     </div>

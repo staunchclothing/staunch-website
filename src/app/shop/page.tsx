@@ -20,7 +20,7 @@ export default function ShopPage() {
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-staunch-muted sm:text-base">
           Heavyweight 100% cotton tees in white and black, the Staunch cap, and
-          the bottle opener. Tees are £35 each, or 2 for £65.{" "}
+          The Staunch Opener. Tees are £35 each, or 2 for £65.{" "}
           {FREE_SHIPPING_DETAIL}
         </p>
       </div>

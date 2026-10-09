@@ -63,19 +63,24 @@ export const products: Product[] = [
   {
     id: "staunch-bottle-opener",
     slug: "staunch-bottle-opener",
-    name: "Staunch Bottle Opener",
+    name: "The Staunch Opener",
     description:
-      "Stainless steel bottle opener, built for the toolbox, the fridge, and the pub after a long day.",
+      "Welcome to the most important tool for your box. We have designed your first and last bottle opener. Simple, strong like an ox, and ready for a lifetime of service. Carry this weapon up any mountain and down any trench for it will never let you down.",
     details: [
-      "Stainless steel",
-      "Compact, pocket-friendly",
-      "One size",
+      "4mm thick black die-cast zinc alloy",
+      "75mm in length",
     ],
     price: 1200,
     category: "opener",
-    color: "Stainless",
+    color: "Black",
     sizes: ["One Size"],
-    image: "/products/bottle-opener.jpg",
+    image: "/products/bottle-opener-ox.jpg",
+    images: [
+      "/products/bottle-opener-ox.jpg",
+      "/products/bottle-opener-wordmark.jpg",
+      "/products/bottle-opener-lifestyle.jpg",
+    ],
+    tagline: "One eye on the boundary, one eye on the pub.",
   },
 ];
 

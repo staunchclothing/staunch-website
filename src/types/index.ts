@@ -13,6 +13,7 @@ export interface Product {
   soldOutSizes?: Size[];
   image: string;
   images?: string[];
+  tagline?: string;
 }
 
 export interface CartItem {
