@@ -74,10 +74,10 @@ export const products: Product[] = [
     category: "opener",
     color: "Black",
     sizes: ["One Size"],
-    image: "/products/bottle-opener-ox.jpg",
+    image: "/products/bottle-opener-wordmark.jpg",
     images: [
-      "/products/bottle-opener-ox.jpg",
       "/products/bottle-opener-wordmark.jpg",
+      "/products/bottle-opener-ox.jpg",
       "/products/bottle-opener-lifestyle.jpg",
     ],
     tagline: "One eye on the boundary, one eye on the pub.",
