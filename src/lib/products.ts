@@ -60,7 +60,30 @@ export const products: Product[] = [
     image: "/products/cap-front.png",
     images: ["/products/cap-front.png", "/products/cap-back.png"],
   },
+  {
+    id: "staunch-bottle-opener",
+    slug: "staunch-bottle-opener",
+    name: "Staunch Bottle Opener",
+    description:
+      "Stainless steel bottle opener, built for the toolbox, the fridge, and the pub after a long day.",
+    details: [
+      "Stainless steel",
+      "Compact, pocket-friendly",
+      "One size",
+    ],
+    price: 1200,
+    category: "opener",
+    color: "Stainless",
+    sizes: ["One Size"],
+    image: "/products/bottle-opener.jpg",
+  },
 ];
+
+export const categoryLabels: Record<Product["category"], string> = {
+  tee: "Heavyweight Tee",
+  cap: "Cap",
+  opener: "Bottle Opener",
+};
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

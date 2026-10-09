@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 import { AddToCartForm } from "@/components/AddToCartForm";
 import { ProductGallery } from "@/components/ProductGallery";
 import { ProductImage } from "@/components/ProductImage";
-import { formatPrice, getProductBySlug, products } from "@/lib/products";
+import {
+  categoryLabels,
+  formatPrice,
+  getProductBySlug,
+  products,
+} from "@/lib/products";
 import { TEE_PAIR_PRICE } from "@/lib/pricing";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
@@ -58,7 +63,7 @@ export default async function ProductPage({
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-            {product.category === "tee" ? "Heavyweight Tee" : "Cap"}
+            {categoryLabels[product.category]}
           </p>
           <h1 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
             {product.name}

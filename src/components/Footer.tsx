@@ -45,6 +45,14 @@ export function Footer() {
                   Caps
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/shop/staunch-bottle-opener"
+                  className="hover:text-staunch-accent"
+                >
+                  Bottle opener
+                </Link>
+              </li>
             </ul>
           </div>
 

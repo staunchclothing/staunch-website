@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface PlaceholderImageProps {
   label: string;
-  category?: "tee" | "cap";
+  category?: "tee" | "cap" | "opener";
   color?: string;
   className?: string;
   aspect?: "square" | "portrait" | "wide";

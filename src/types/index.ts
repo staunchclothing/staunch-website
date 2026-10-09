@@ -7,7 +7,7 @@ export interface Product {
   description: string;
   details: string[];
   price: number;
-  category: "tee" | "cap";
+  category: "tee" | "cap" | "opener";
   color: string;
   sizes: Size[];
   soldOutSizes?: Size[];

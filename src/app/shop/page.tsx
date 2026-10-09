@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Shop Staunch heavyweight tees and caps.",
+  description: "Shop Staunch heavyweight tees, caps, and bottle openers.",
 };
 
 export default function ShopPage() {
@@ -19,8 +19,9 @@ export default function ShopPage() {
           All products
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-staunch-muted sm:text-base">
-          Heavyweight 100% cotton tees in white and black, plus the Staunch cap.
-          Tees are £35 each, or 2 for £65. {FREE_SHIPPING_DETAIL}
+          Heavyweight 100% cotton tees in white and black, the Staunch cap, and
+          the bottle opener. Tees are £35 each, or 2 for £65.{" "}
+          {FREE_SHIPPING_DETAIL}
         </p>
       </div>
 
