@@ -49,12 +49,17 @@ export default async function ProductPage({
 
       <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
         {images.length > 1 ? (
-          <ProductGallery images={images} alt={product.name} />
+          <ProductGallery
+            images={images}
+            alt={product.name}
+            fit={product.imageFit}
+          />
         ) : (
           <div className="overflow-hidden rounded-lg border border-staunch-border">
             <ProductImage
               src={product.image}
               alt={product.name}
+              fit={product.imageFit}
               className="w-full"
               priority
             />

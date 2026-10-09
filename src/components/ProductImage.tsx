@@ -6,6 +6,7 @@ interface ProductImageProps {
   alt: string;
   className?: string;
   aspect?: "square" | "portrait" | "wide" | "fill";
+  fit?: "cover" | "contain";
   priority?: boolean;
 }
 
@@ -14,8 +15,10 @@ export function ProductImage({
   alt,
   className,
   aspect = "portrait",
+  fit = "cover",
   priority = false,
 }: ProductImageProps) {
+  const contain = fit === "contain";
   const aspectClass =
     aspect === "fill"
       ? "h-full w-full"
@@ -23,7 +26,9 @@ export function ProductImage({
         ? "aspect-square"
         : aspect === "wide"
           ? "aspect-[16/9]"
-          : "aspect-[4/5]";
+          : contain
+            ? "aspect-[2/3]"
+            : "aspect-[4/5]";
 
   return (
     <div
@@ -37,7 +42,9 @@ export function ProductImage({
         src={src}
         alt={alt}
         fill
-        className="object-cover object-center"
+        className={
+          contain ? "object-contain object-center" : "object-cover object-center"
+        }
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={priority}
       />

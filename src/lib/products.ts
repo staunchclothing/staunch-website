@@ -81,6 +81,7 @@ export const products: Product[] = [
       "/products/bottle-opener-lifestyle.jpg",
     ],
     tagline: "One eye on the boundary, one eye on the pub.",
+    imageFit: "contain",
   },
 ];
 

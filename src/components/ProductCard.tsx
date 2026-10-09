@@ -10,7 +10,12 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage
           src={product.image}
           alt={product.name}
-          className="w-full transition-transform duration-500 group-hover:scale-[1.02]"
+          fit={product.imageFit}
+          className={
+            product.imageFit === "contain"
+              ? "w-full"
+              : "w-full transition-transform duration-500 group-hover:scale-[1.02]"
+          }
         />
       </div>
       <div className="mt-4 flex items-start justify-between gap-4">
