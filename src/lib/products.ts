@@ -6,7 +6,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-white",
     slug: "heavyweight-tee-white",
-    name: "White Heavyweight Branded T-Shirt",
+    name: "White Branded T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
@@ -25,7 +25,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-black",
     slug: "heavyweight-tee-black",
-    name: "Black Heavyweight Branded T-Shirt",
+    name: "Black Branded T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
@@ -44,7 +44,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-autumn",
     slug: "embroidered-premium-cotton-heavyweight-t",
-    name: "Embroidered Premium Cotton Heavyweight T-Shirt",
+    name: "The Ox T-Shirt",
     description:
       "100% cotton premium heavyweight tee with embroidered oxen logo.",
     details: [

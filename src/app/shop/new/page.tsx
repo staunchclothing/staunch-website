@@ -6,14 +6,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "New",
   description:
-    "New from Staunch: the embroidered premium heavyweight t-shirt and The Staunch Opener.",
+    "New from Staunch: The Ox T-Shirt and The Staunch Opener.",
 };
 
 export default function NewPage() {
   return (
     <ShopListing
       title="New"
-      description={`The embroidered premium heavyweight t-shirt and The Staunch Opener. ${FREE_SHIPPING_DETAIL}`}
+      description={`The Ox T-Shirt and The Staunch Opener. ${FREE_SHIPPING_DETAIL}`}
     >
       <ProductCatalog className="mt-12" layout="new" />
     </ShopListing>
