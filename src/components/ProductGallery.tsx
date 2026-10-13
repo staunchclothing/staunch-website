@@ -47,7 +47,7 @@ export function ProductGallery({ images, alt, fit = "cover" }: ProductGalleryPro
               <ProductImage
                 src={image}
                 alt={`${alt} view ${index + 1}`}
-                aspect={fit === "contain" ? "portrait" : "square"}
+                aspect="square"
                 fit={fit}
                 className="w-full"
               />

@@ -26,9 +26,7 @@ export function ProductImage({
         ? "aspect-square"
         : aspect === "wide"
           ? "aspect-[16/9]"
-          : contain
-            ? "aspect-[2/3]"
-            : "aspect-[4/5]";
+          : "aspect-[4/5]";
 
   return (
     <div
@@ -43,7 +41,9 @@ export function ProductImage({
         alt={alt}
         fill
         className={
-          contain ? "object-contain object-center" : "object-cover object-center"
+          contain
+            ? "object-contain object-center p-3"
+            : "object-cover object-center"
         }
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={priority}
