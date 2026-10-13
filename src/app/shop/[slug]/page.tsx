@@ -63,7 +63,9 @@ export default async function ProductPage({
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-            {categoryLabels[product.category]}
+            {product.newRelease
+              ? "New"
+              : categoryLabels[product.category]}
           </p>
           <h1 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
             {product.name}

@@ -6,7 +6,12 @@ import type { Product } from "@/types";
 export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/shop/${product.slug}`} className="group block">
-      <div className="overflow-hidden rounded-lg border border-staunch-border bg-staunch-surface transition-colors group-hover:border-staunch-accent/50">
+      <div className="relative overflow-hidden rounded-lg border border-staunch-border bg-staunch-surface transition-colors group-hover:border-staunch-accent/50">
+        {product.newRelease && (
+          <span className="absolute left-3 top-3 z-10 rounded-sm bg-staunch-accent px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white">
+            New
+          </span>
+        )}
         <ProductImage
           src={product.image}
           alt={product.name}

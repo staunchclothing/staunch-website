@@ -1,4 +1,5 @@
 import { ProductCatalog } from "@/components/ProductCatalog";
+import { ShopListing } from "@/components/ShopListing";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
 
@@ -9,22 +10,11 @@ export const metadata: Metadata = {
 
 export default function ShopPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-          Shop
-        </p>
-        <h1 className="font-display mt-2 text-4xl font-bold uppercase tracking-tight sm:text-5xl">
-          All products
-        </h1>
-        <p className="mt-4 text-sm leading-relaxed text-staunch-muted sm:text-base">
-          Heavyweight 100% cotton tees, the Staunch cap, and The Staunch Opener.
-          Standard tees are £35 each, or 2 for £65.{" "}
-          {FREE_SHIPPING_DETAIL}
-        </p>
-      </div>
-
+    <ShopListing
+      title="All products"
+      description={`Heavyweight 100% cotton tees, the Staunch cap, and The Staunch Opener. Standard tees are £35 each, or 2 for £65. ${FREE_SHIPPING_DETAIL}`}
+    >
       <ProductCatalog className="mt-12" />
-    </div>
+    </ShopListing>
   );
 }

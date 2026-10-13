@@ -48,10 +48,10 @@ export default function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-              The range
+              Shop
             </p>
             <h2 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-              Shop essentials
+              All products
             </h2>
             <p className="mt-2 text-sm text-staunch-accent">
               Tees £35 each — 2 for £65 · Free shipping on orders over £65

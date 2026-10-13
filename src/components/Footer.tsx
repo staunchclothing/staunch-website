@@ -28,37 +28,21 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-staunch-muted">
               <li>
+                <Link href="/shop/t-shirts" className="hover:text-staunch-accent">
+                  T-shirts
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop/accessories"
+                  className="hover:text-staunch-accent"
+                >
+                  Accessories
+                </Link>
+              </li>
+              <li>
                 <Link href="/shop" className="hover:text-staunch-accent">
-                  All products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop/heavyweight-tee-white"
-                  className="hover:text-staunch-accent"
-                >
-                  Heavyweight Tees
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop/embroidered-premium-cotton-heavyweight-t"
-                  className="hover:text-staunch-accent"
-                >
-                  Premium tee
-                </Link>
-              </li>
-              <li>
-                <Link href="/shop/staunch-cap" className="hover:text-staunch-accent">
-                  Caps
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop/staunch-bottle-opener"
-                  className="hover:text-staunch-accent"
-                >
-                  The Staunch Opener
+                  Shop all
                 </Link>
               </li>
             </ul>

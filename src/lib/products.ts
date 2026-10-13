@@ -115,6 +115,12 @@ export const categoryLabels: Record<Product["category"], string> = {
   opener: "Bottle Opener",
 };
 
+export const shopNavLinks = [
+  { href: "/shop/t-shirts", label: "T-shirts" },
+  { href: "/shop/accessories", label: "Accessories" },
+  { href: "/shop", label: "Shop all" },
+] as const;
+
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
@@ -125,6 +131,16 @@ export function getNewReleaseProducts(): Product[] {
 
 export function getCoreProducts(): Product[] {
   return products.filter((product) => !product.newRelease);
+}
+
+export function getTeeProducts(): Product[] {
+  return products.filter((product) => product.category === "tee");
+}
+
+export function getAccessoryProducts(): Product[] {
+  return products.filter(
+    (product) => product.category === "cap" || product.category === "opener",
+  );
 }
 
 export function getProductById(id: string): Product | undefined {

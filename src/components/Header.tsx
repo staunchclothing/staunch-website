@@ -6,13 +6,26 @@ import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./Logo";
 import { useCart } from "@/context/CartContext";
+import { shopNavLinks } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
-const navLinks = [
-  { href: "/shop", label: "Shop" },
+const pageLinks = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+
+function isShopAll(pathname: string) {
+  return pathname === "/shop";
+}
+
+function isShopSection(pathname: string) {
+  return pathname === "/shop" || pathname.startsWith("/shop/");
+}
+
+function isNavActive(href: string, pathname: string) {
+  if (href === "/shop") return isShopAll(pathname);
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -26,8 +39,40 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+        <nav className="hidden h-full items-center gap-8 md:flex">
+          <div className="group relative flex h-full items-center">
+            <Link
+              href="/shop"
+              className={cn(
+                "inline-flex h-full items-center text-sm font-medium uppercase tracking-[0.15em] transition-colors hover:text-staunch-accent",
+                isShopSection(pathname)
+                  ? "text-staunch-accent"
+                  : "text-staunch-muted",
+              )}
+            >
+              Shop
+            </Link>
+            <div className="invisible absolute left-0 top-full z-50 min-w-[12.5rem] pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <div className="rounded-lg border border-staunch-border bg-staunch-bg py-2 shadow-lg">
+                {shopNavLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "block px-4 py-2.5 text-sm font-medium uppercase tracking-[0.15em] transition-colors hover:bg-staunch-surface hover:text-staunch-accent",
+                      isNavActive(link.href, pathname)
+                        ? "text-staunch-accent"
+                        : "text-staunch-muted",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {pageLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -71,7 +116,22 @@ export function Header() {
       {menuOpen && (
         <nav className="border-t border-staunch-border bg-staunch-bg px-4 py-4 md:hidden">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {shopNavLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={cn(
+                  "rounded-lg px-3 py-3 text-sm font-medium uppercase tracking-[0.15em]",
+                  isNavActive(link.href, pathname)
+                    ? "bg-staunch-surface text-staunch-accent"
+                    : "text-staunch-muted",
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+            {pageLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
