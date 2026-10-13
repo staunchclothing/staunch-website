@@ -8,22 +8,11 @@ import {
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
-type CatalogLayout = "all" | "t-shirts" | "accessories";
+type CatalogLayout = "all" | "new" | "t-shirts" | "accessories";
 
-function ProductGrid({
-  products,
-  columns,
-}: {
-  products: Product[];
-  columns: 2 | 3;
-}) {
+function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <div
-      className={cn(
-        "grid gap-12",
-        columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2",
-      )}
-    >
+    <div className="grid gap-12 sm:grid-cols-3">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
@@ -38,10 +27,18 @@ export function ProductCatalog({
   layout?: CatalogLayout;
   className?: string;
 }) {
+  if (layout === "new") {
+    return (
+      <div className={className}>
+        <ProductGrid products={getNewReleaseProducts()} />
+      </div>
+    );
+  }
+
   if (layout === "t-shirts") {
     return (
       <div className={className}>
-        <ProductGrid products={getTeeProducts()} columns={3} />
+        <ProductGrid products={getTeeProducts()} />
       </div>
     );
   }
@@ -49,13 +46,15 @@ export function ProductCatalog({
   if (layout === "accessories") {
     return (
       <div className={className}>
-        <ProductGrid products={getAccessoryProducts()} columns={2} />
+        <ProductGrid products={getAccessoryProducts()} />
       </div>
     );
   }
 
   const newReleases = getNewReleaseProducts();
   const coreProducts = getCoreProducts();
+  const coreTees = coreProducts.filter((product) => product.category === "tee");
+  const remaining = coreProducts.filter((product) => product.category !== "tee");
 
   return (
     <div className={cn("space-y-12", className)}>
@@ -65,13 +64,12 @@ export function ProductCatalog({
             New
           </p>
           <div className="mt-4">
-            <ProductGrid products={newReleases} columns={2} />
+            <ProductGrid products={newReleases} />
           </div>
         </section>
       )}
-      {coreProducts.length > 0 && (
-        <ProductGrid products={coreProducts} columns={2} />
-      )}
+      {coreTees.length > 0 && <ProductGrid products={coreTees} />}
+      {remaining.length > 0 && <ProductGrid products={remaining} />}
     </div>
   );
 }

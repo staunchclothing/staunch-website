@@ -111,6 +111,7 @@ export const products: Product[] = [
 
 export const shopNavLinks = [
   { href: "/shop", label: "Shop all" },
+  { href: "/shop/new", label: "New" },
   { href: "/shop/t-shirts", label: "T-shirts" },
   { href: "/shop/accessories", label: "Accessories" },
 ] as const;
@@ -128,7 +129,11 @@ export function getCoreProducts(): Product[] {
 }
 
 export function getTeeProducts(): Product[] {
-  return products.filter((product) => product.category === "tee");
+  const tees = products.filter((product) => product.category === "tee");
+  return [
+    ...tees.filter((product) => product.newRelease),
+    ...tees.filter((product) => !product.newRelease),
+  ];
 }
 
 export function getAccessoryProducts(): Product[] {
