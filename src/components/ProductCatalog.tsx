@@ -20,7 +20,7 @@ function ProductGrid({
   return (
     <div
       className={cn(
-        "grid gap-8",
+        "grid gap-12",
         columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2",
       )}
     >

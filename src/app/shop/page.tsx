@@ -12,7 +12,7 @@ export default function ShopPage() {
   return (
     <ShopListing
       title="All products"
-      description={`Heavyweight 100% cotton tees, the Staunch cap, and The Staunch Opener. Standard tees are £35 each, or 2 for £65. ${FREE_SHIPPING_DETAIL}`}
+      description={`Heavyweight 100% cotton tees, The Staunch Cap, and The Staunch Opener. Standard tees are £35 each, or 2 for £65. ${FREE_SHIPPING_DETAIL}`}
     >
       <ProductCatalog className="mt-12" />
     </ShopListing>

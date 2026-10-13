@@ -6,7 +6,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-white",
     slug: "heavyweight-tee-white",
-    name: "White Heavyweight T-Shirt",
+    name: "White Heavyweight Branded T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
@@ -25,7 +25,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-black",
     slug: "heavyweight-tee-black",
-    name: "Black Heavyweight T-Shirt",
+    name: "Black Heavyweight Branded T-Shirt",
     description:
       "100% cotton heavyweight tee with Staunch branding. Thick, durable, and built to last.",
     details: [
@@ -44,7 +44,7 @@ export const products: Product[] = [
   {
     id: "staunch-tee-autumn",
     slug: "embroidered-premium-cotton-heavyweight-t",
-    name: "Embroidered Premium Cotton Heavyweight T",
+    name: "Embroidered Premium Cotton Heavyweight T-Shirt",
     description:
       "100% cotton premium heavyweight tee with embroidered oxen logo.",
     details: [
@@ -68,7 +68,7 @@ export const products: Product[] = [
   {
     id: "staunch-cap",
     slug: "staunch-cap",
-    name: "Staunch Cap",
+    name: "The Staunch Cap",
     description:
       "Structured six-panel cap with embroidered Staunch oxen logo. Built for long days and hard graft.",
     details: [
@@ -109,16 +109,10 @@ export const products: Product[] = [
   },
 ];
 
-export const categoryLabels: Record<Product["category"], string> = {
-  tee: "Heavyweight Tee",
-  cap: "Cap",
-  opener: "Bottle Opener",
-};
-
 export const shopNavLinks = [
+  { href: "/shop", label: "Shop all" },
   { href: "/shop/t-shirts", label: "T-shirts" },
   { href: "/shop/accessories", label: "Accessories" },
-  { href: "/shop", label: "Shop all" },
 ] as const;
 
 export function getProductBySlug(slug: string): Product | undefined {

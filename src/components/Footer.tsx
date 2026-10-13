@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TAGLINE } from "@/lib/brand";
+import { shopNavLinks } from "@/lib/products";
 import { FREE_SHIPPING_SHORT } from "@/lib/shipping";
 import { Logo } from "./Logo";
 
@@ -27,24 +28,13 @@ export function Footer() {
               Shop
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-staunch-muted">
-              <li>
-                <Link href="/shop/t-shirts" className="hover:text-staunch-accent">
-                  T-shirts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop/accessories"
-                  className="hover:text-staunch-accent"
-                >
-                  Accessories
-                </Link>
-              </li>
-              <li>
-                <Link href="/shop" className="hover:text-staunch-accent">
-                  Shop all
-                </Link>
-              </li>
+              {shopNavLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-staunch-accent">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
