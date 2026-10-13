@@ -44,14 +44,14 @@ export const products: Product[] = [
   {
     id: "staunch-tee-autumn",
     slug: "limited-edition-autumn-heavyweight-tee",
-    name: "Limited Edition Embroidered Autumn Heavyweight T",
+    name: "Embroidered Premium Cotton Heavyweight T",
     description:
-      "A limited run of our heavyweight tee, embroidered for autumn. Thick 100% cotton, built to last, and made in a short drop.",
+      "100% cotton premium heavyweight tee with embroidered oxen logo.",
     details: [
       "100% cotton",
       "180gsm heavyweight fabric",
       "Embroidered Staunch oxen",
-      "Limited edition",
+      "Relaxed fit",
     ],
     price: 4600,
     category: "tee",
