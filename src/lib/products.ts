@@ -57,7 +57,11 @@ export const products: Product[] = [
     category: "tee",
     color: "Autumn",
     sizes: ["L", "XL", "XXL"],
-    image: "/products/tee-autumn.jpg",
+    image: "/products/tee-autumn-front.png",
+    images: [
+      "/products/tee-autumn-front.png",
+      "/products/tee-autumn-back.png",
+    ],
     preorder: "Coming in 1 week",
   },
   {
