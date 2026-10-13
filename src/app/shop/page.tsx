@@ -19,8 +19,8 @@ export default function ShopPage() {
           All products
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-staunch-muted sm:text-base">
-          Heavyweight 100% cotton tees in white and black, the Staunch cap, and
-          The Staunch Opener. Tees are £35 each, or 2 for £65.{" "}
+          Heavyweight 100% cotton tees, the Staunch cap, and The Staunch Opener.
+          Standard tees are £35 each, or 2 for £65.{" "}
           {FREE_SHIPPING_DETAIL}
         </p>
       </div>

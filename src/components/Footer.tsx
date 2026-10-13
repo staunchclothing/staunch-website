@@ -41,6 +41,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/shop/limited-edition-autumn-heavyweight-tee"
+                  className="hover:text-staunch-accent"
+                >
+                  Autumn tee
+                </Link>
+              </li>
+              <li>
                 <Link href="/shop/staunch-cap" className="hover:text-staunch-accent">
                   Caps
                 </Link>

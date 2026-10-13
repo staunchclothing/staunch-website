@@ -68,13 +68,20 @@ export default async function ProductPage({
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-            {categoryLabels[product.category]}
+            {product.preorder
+              ? "Limited Edition"
+              : categoryLabels[product.category]}
           </p>
           <h1 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
             {product.name}
           </h1>
           <p className="mt-4 text-2xl font-medium">{formatPrice(product.price)}</p>
-          {product.category === "tee" && (
+          {product.preorder && (
+            <p className="mt-1 text-sm font-medium uppercase tracking-[0.15em] text-staunch-accent">
+              Preorder — {product.preorder}
+            </p>
+          )}
+          {product.category === "tee" && !product.preorder && (
             <p className="mt-1 text-sm text-staunch-accent">
               2 for {formatPrice(TEE_PAIR_PRICE)}
             </p>
@@ -100,7 +107,10 @@ export default async function ProductPage({
           </div>
 
           <p className="mt-6 text-xs leading-relaxed text-staunch-muted">
-            {FREE_SHIPPING_DETAIL} Dispatched within 2–3 working days.
+            {FREE_SHIPPING_DETAIL}{" "}
+            {product.preorder
+              ? `Preorder — ${product.preorder.toLowerCase()}.`
+              : "Dispatched within 2–3 working days."}
           </p>
 
           {product.tagline && (

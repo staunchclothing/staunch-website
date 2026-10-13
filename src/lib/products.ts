@@ -42,6 +42,25 @@ export const products: Product[] = [
     image: "/products/tee-black.png",
   },
   {
+    id: "staunch-tee-autumn",
+    slug: "limited-edition-autumn-heavyweight-tee",
+    name: "Limited Edition Embroidered Autumn Heavyweight T",
+    description:
+      "A limited run of our heavyweight tee, embroidered for autumn. Thick 100% cotton, built to last, and made in a short drop.",
+    details: [
+      "100% cotton",
+      "180gsm heavyweight fabric",
+      "Embroidered Staunch oxen",
+      "Limited edition",
+    ],
+    price: 4600,
+    category: "tee",
+    color: "Autumn",
+    sizes: ["L", "XL", "XXL"],
+    image: "/products/tee-autumn.jpg",
+    preorder: "Coming in 1 week",
+  },
+  {
     id: "staunch-cap",
     slug: "staunch-cap",
     name: "Staunch Cap",
@@ -97,6 +116,10 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
+}
+
+export function isTeeDealProduct(product: Product | undefined): boolean {
+  return product?.category === "tee" && !product.preorder;
 }
 
 export function isSizeAvailable(product: Product, size: Size): boolean {

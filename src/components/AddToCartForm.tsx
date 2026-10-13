@@ -93,7 +93,13 @@ export function AddToCartForm({ product }: { product: Product }) {
           disabled={!canPurchase}
           className="flex-1 rounded-md bg-staunch-accent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {added ? "Added to cart" : canPurchase ? "Add to cart" : "Sold out"}
+          {added
+            ? "Added to cart"
+            : !canPurchase
+              ? "Sold out"
+              : product.preorder
+                ? "Preorder"
+                : "Add to cart"}
         </button>
         <button
           type="button"

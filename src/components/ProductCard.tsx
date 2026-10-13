@@ -24,12 +24,17 @@ export function ProductCard({ product }: { product: Product }) {
             {product.name}
           </h3>
           <p className="mt-1 text-sm text-staunch-muted">{product.color}</p>
+          {product.preorder && (
+            <p className="mt-1 text-xs font-medium uppercase tracking-[0.15em] text-staunch-accent">
+              Preorder — {product.preorder}
+            </p>
+          )}
         </div>
         <div className="shrink-0 text-right">
           <p className="text-sm font-medium text-staunch-fg">
             {formatPrice(product.price)}
           </p>
-          {product.category === "tee" && (
+          {product.category === "tee" && !product.preorder && (
             <p className="mt-0.5 text-xs text-staunch-accent">2 for £65</p>
           )}
         </div>

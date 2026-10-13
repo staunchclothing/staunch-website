@@ -1,4 +1,4 @@
-import { getProductById } from "@/lib/products";
+import { getProductById, isTeeDealProduct } from "@/lib/products";
 import type { CartItem, CartLine } from "@/types";
 
 export const TEE_PRICE = 3500;
@@ -18,7 +18,7 @@ export interface CartPricing {
 export function countTees(items: Pick<CartItem, "productId" | "quantity">[]): number {
   return items.reduce((sum, item) => {
     const product = getProductById(item.productId);
-    if (product?.category === "tee") return sum + item.quantity;
+    if (isTeeDealProduct(product)) return sum + item.quantity;
     return sum;
   }, 0);
 }
@@ -28,7 +28,7 @@ export function calculateCartPricing(lines: CartLine[]): CartPricing {
   let capSubtotal = 0;
 
   for (const line of lines) {
-    if (line.product.category === "tee") {
+    if (isTeeDealProduct(line.product)) {
       teeCount += line.quantity;
     } else {
       capSubtotal += line.lineTotal;
@@ -74,7 +74,7 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     const product = getProductById(item.productId);
     if (!product) continue;
 
-    if (product.category === "tee") {
+    if (isTeeDealProduct(product)) {
       for (let i = 0; i < item.quantity; i++) {
         teeUnits.push({ productId: item.productId, size: item.size });
       }

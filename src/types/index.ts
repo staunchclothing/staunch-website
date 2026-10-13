@@ -15,6 +15,7 @@ export interface Product {
   images?: string[];
   tagline?: string;
   imageFit?: "cover" | "contain";
+  preorder?: string;
 }
 
 export interface CartItem {

@@ -93,6 +93,11 @@ export default function CartPage() {
                     <p className="mt-1 text-sm text-staunch-muted">
                       Size: {line.size}
                     </p>
+                    {line.product.preorder && (
+                      <p className="mt-1 text-xs uppercase tracking-[0.15em] text-staunch-accent">
+                        Preorder — {line.product.preorder}
+                      </p>
+                    )}
                   </div>
                   <p className="text-sm font-medium sm:text-base">
                     {formatPrice(line.lineTotal)}
