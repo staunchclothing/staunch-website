@@ -1,5 +1,4 @@
-import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/lib/products";
+import { ProductCatalog } from "@/components/ProductCatalog";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
 
@@ -25,11 +24,7 @@ export default function ShopPage() {
         </p>
       </div>
 
-      <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ProductCatalog className="mt-12" />
     </div>
   );
 }

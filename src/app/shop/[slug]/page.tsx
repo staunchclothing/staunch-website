@@ -49,17 +49,12 @@ export default async function ProductPage({
 
       <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
         {images.length > 1 ? (
-          <ProductGallery
-            images={images}
-            alt={product.name}
-            fit={product.imageFit}
-          />
+          <ProductGallery images={images} alt={product.name} />
         ) : (
           <div className="overflow-hidden rounded-lg border border-staunch-border">
             <ProductImage
               src={product.image}
               alt={product.name}
-              fit={product.imageFit}
               className="w-full"
               priority
             />
@@ -68,9 +63,7 @@ export default async function ProductPage({
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-            {product.preorder
-              ? "Limited Edition"
-              : categoryLabels[product.category]}
+            {categoryLabels[product.category]}
           </p>
           <h1 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
             {product.name}

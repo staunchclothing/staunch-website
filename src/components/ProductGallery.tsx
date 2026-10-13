@@ -7,10 +7,9 @@ import { cn } from "@/lib/utils";
 interface ProductGalleryProps {
   images: string[];
   alt: string;
-  fit?: "cover" | "contain";
 }
 
-export function ProductGallery({ images, alt, fit = "cover" }: ProductGalleryProps) {
+export function ProductGallery({ images, alt }: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -19,7 +18,6 @@ export function ProductGallery({ images, alt, fit = "cover" }: ProductGalleryPro
         <ProductImage
           src={images[activeIndex]}
           alt={alt}
-          fit={fit}
           className="w-full"
           priority
         />
@@ -48,7 +46,6 @@ export function ProductGallery({ images, alt, fit = "cover" }: ProductGalleryPro
                 src={image}
                 alt={`${alt} view ${index + 1}`}
                 aspect="square"
-                fit={fit}
                 className="w-full"
               />
             </button>

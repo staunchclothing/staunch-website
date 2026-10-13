@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HeroLogoStack } from "@/components/Logo";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCatalog } from "@/components/ProductCatalog";
 import { TAGLINE } from "@/lib/brand";
-import { products } from "@/lib/products";
 
 export default function HomePage() {
   return (
@@ -67,11 +66,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductCatalog className="mt-10" />
 
         <Link
           href="/shop"

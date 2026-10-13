@@ -23,7 +23,7 @@ export function PlaceholderImage({
       ? "aspect-square"
       : aspect === "wide"
         ? "aspect-[16/9]"
-        : "aspect-[4/5]";
+        : "aspect-[2/3]";
 
   return (
     <div

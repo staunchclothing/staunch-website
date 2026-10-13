@@ -79,7 +79,6 @@ export default function CartPage() {
                   src={line.product.image}
                   alt={line.product.name}
                   aspect="fill"
-                  fit={line.product.imageFit}
                   className="h-full w-full"
                 />
               </div>

@@ -43,7 +43,7 @@ export const products: Product[] = [
   },
   {
     id: "staunch-tee-autumn",
-    slug: "limited-edition-autumn-heavyweight-tee",
+    slug: "embroidered-premium-cotton-heavyweight-t",
     name: "Embroidered Premium Cotton Heavyweight T",
     description:
       "100% cotton premium heavyweight tee with embroidered oxen logo.",
@@ -55,7 +55,7 @@ export const products: Product[] = [
     ],
     price: 4600,
     category: "tee",
-    color: "Autumn",
+    color: "Brown",
     sizes: ["L", "XL", "XXL"],
     image: "/products/tee-autumn-front.png",
     images: [
@@ -63,6 +63,7 @@ export const products: Product[] = [
       "/products/tee-autumn-back.png",
     ],
     preorder: "Coming in 1 week",
+    newRelease: true,
   },
   {
     id: "staunch-cap",
@@ -104,7 +105,7 @@ export const products: Product[] = [
       "/products/bottle-opener-lifestyle.jpg",
     ],
     tagline: "One eye on the boundary, one eye on the pub.",
-    imageFit: "contain",
+    newRelease: true,
   },
 ];
 
@@ -116,6 +117,14 @@ export const categoryLabels: Record<Product["category"], string> = {
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
+}
+
+export function getNewReleaseProducts(): Product[] {
+  return products.filter((product) => product.newRelease);
+}
+
+export function getCoreProducts(): Product[] {
+  return products.filter((product) => !product.newRelease);
 }
 
 export function getProductById(id: string): Product | undefined {

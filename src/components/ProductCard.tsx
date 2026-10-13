@@ -10,12 +10,7 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage
           src={product.image}
           alt={product.name}
-          fit={product.imageFit}
-          className={
-            product.imageFit === "contain"
-              ? "w-full"
-              : "w-full transition-transform duration-500 group-hover:scale-[1.02]"
-          }
+          className="w-full transition-transform duration-500 group-hover:scale-[1.02]"
         />
       </div>
       <div className="mt-4 flex items-start justify-between gap-4">
@@ -23,7 +18,6 @@ export function ProductCard({ product }: { product: Product }) {
           <h3 className="font-display text-lg font-semibold uppercase tracking-wide text-staunch-fg">
             {product.name}
           </h3>
-          <p className="mt-1 text-sm text-staunch-muted">{product.color}</p>
           {product.preorder && (
             <p className="mt-1 text-xs font-medium uppercase tracking-[0.15em] text-staunch-accent">
               Preorder — {product.preorder}

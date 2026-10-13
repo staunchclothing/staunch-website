@@ -42,10 +42,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/shop/limited-edition-autumn-heavyweight-tee"
+                  href="/shop/embroidered-premium-cotton-heavyweight-t"
                   className="hover:text-staunch-accent"
                 >
-                  Autumn tee
+                  Premium tee
                 </Link>
               </li>
               <li>

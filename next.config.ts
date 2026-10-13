@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/shop/limited-edition-autumn-heavyweight-tee",
+        destination: "/shop/embroidered-premium-cotton-heavyweight-t",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
