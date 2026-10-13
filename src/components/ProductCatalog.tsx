@@ -1,22 +1,61 @@
 import { ProductCard } from "./ProductCard";
-import { getCoreProducts, getNewReleaseProducts } from "@/lib/products";
+import {
+  getAccessoryProducts,
+  getCoreProducts,
+  getNewReleaseProducts,
+  getTeeProducts,
+} from "@/lib/products";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
+type CatalogLayout = "all" | "t-shirts" | "accessories";
+
+function ProductGrid({
+  products,
+  columns,
+}: {
+  products: Product[];
+  columns: 2 | 3;
+}) {
+  return (
+    <div
+      className={cn(
+        "grid gap-8",
+        columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2",
+      )}
+    >
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+
 export function ProductCatalog({
-  items,
+  layout = "all",
   className,
 }: {
-  items?: Product[];
+  layout?: CatalogLayout;
   className?: string;
 }) {
-  const catalog = items ?? null;
-  const newReleases = catalog
-    ? catalog.filter((product) => product.newRelease)
-    : getNewReleaseProducts();
-  const coreProducts = catalog
-    ? catalog.filter((product) => !product.newRelease)
-    : getCoreProducts();
+  if (layout === "t-shirts") {
+    return (
+      <div className={className}>
+        <ProductGrid products={getTeeProducts()} columns={3} />
+      </div>
+    );
+  }
+
+  if (layout === "accessories") {
+    return (
+      <div className={className}>
+        <ProductGrid products={getAccessoryProducts()} columns={2} />
+      </div>
+    );
+  }
+
+  const newReleases = getNewReleaseProducts();
+  const coreProducts = getCoreProducts();
 
   return (
     <div className={cn("space-y-12", className)}>
@@ -25,19 +64,13 @@ export function ProductCatalog({
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
             New
           </p>
-          <div className="mt-4 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {newReleases.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="mt-4">
+            <ProductGrid products={newReleases} columns={2} />
           </div>
         </section>
       )}
       {coreProducts.length > 0 && (
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {coreProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductGrid products={coreProducts} columns={2} />
       )}
     </div>
   );

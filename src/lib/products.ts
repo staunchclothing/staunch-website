@@ -138,9 +138,13 @@ export function getTeeProducts(): Product[] {
 }
 
 export function getAccessoryProducts(): Product[] {
-  return products.filter(
+  const accessories = products.filter(
     (product) => product.category === "cap" || product.category === "opener",
   );
+  return [
+    ...accessories.filter((product) => product.newRelease),
+    ...accessories.filter((product) => !product.newRelease),
+  ];
 }
 
 export function getProductById(id: string): Product | undefined {

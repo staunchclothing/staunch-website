@@ -1,6 +1,5 @@
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { ShopListing } from "@/components/ShopListing";
-import { getAccessoryProducts } from "@/lib/products";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
 
@@ -15,7 +14,7 @@ export default function AccessoriesPage() {
       title="Accessories"
       description={`The Staunch cap and The Staunch Opener. ${FREE_SHIPPING_DETAIL}`}
     >
-      <ProductCatalog className="mt-12" items={getAccessoryProducts()} />
+      <ProductCatalog className="mt-12" layout="accessories" />
     </ShopListing>
   );
 }
