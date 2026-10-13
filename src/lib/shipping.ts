@@ -6,7 +6,7 @@ export const FREE_SHIPPING_SHORT =
   "Free shipping on orders of £65 or more.";
 
 export const FREE_SHIPPING_DETAIL =
-  "Free shipping on orders of £65 or more. Below that, standard delivery is £4.95 (UK) or £14.95 (US).";
+  "Standard delivery is £4.95 (UK) or £14.95 (International). Free shipping on orders of £65 or more.";
 
 export function isFreeShippingEligible(subtotalPence: number): boolean {
   return subtotalPence >= FREE_SHIPPING_MINIMUM;
