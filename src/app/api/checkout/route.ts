@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { buildCheckoutLineItems } from "@/lib/pricing";
 import { getProductById, isSizeAvailable } from "@/lib/products";
-import {
-  isFreeShippingEligible,
-  UK_STANDARD_SHIPPING,
-  US_STANDARD_SHIPPING,
-} from "@/lib/shipping";
+import { getCheckoutShipping, isShippingRegion } from "@/lib/shipping";
 import { getStripe } from "@/lib/stripe";
 import type { CartItem } from "@/types";
 
@@ -36,10 +32,20 @@ export async function POST(request: Request) {
       );
     }
 
-    const { items } = (await request.json()) as { items: CartItem[] };
+    const { items, shippingRegion } = (await request.json()) as {
+      items: CartItem[];
+      shippingRegion?: unknown;
+    };
 
     if (!items?.length) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
+    }
+
+    if (!isShippingRegion(shippingRegion)) {
+      return NextResponse.json(
+        { error: "Choose UK or international shipping" },
+        { status: 400 },
+      );
     }
 
     for (const item of items) {
@@ -64,6 +70,7 @@ export async function POST(request: Request) {
       (sum, line) => sum + line.unitAmount * line.quantity,
       0,
     );
+    const shipping = getCheckoutShipping(shippingRegion, subtotal);
 
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
       checkoutLines.map((line) => ({
@@ -83,25 +90,21 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "http://localhost:3000";
 
-    const freeShipping = isFreeShippingEligible(subtotal);
-    const shippingOptions: Stripe.Checkout.SessionCreateParams.ShippingOption[] =
-      freeShipping
-        ? [
-            shippingRate("Free UK shipping", 0, 2, 5),
-            shippingRate("Free US shipping", 0, 5, 14),
-          ]
-        : [
-            shippingRate("Standard UK delivery", UK_STANDARD_SHIPPING, 2, 5),
-            shippingRate("Standard US delivery", US_STANDARD_SHIPPING, 5, 14),
-          ];
-
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
       shipping_address_collection: {
-        allowed_countries: ["GB", "US"],
+        allowed_countries:
+          shipping.countries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
       },
-      shipping_options: shippingOptions,
+      shipping_options: [
+        shippingRate(
+          shipping.displayName,
+          shipping.amountPence,
+          shipping.minDays,
+          shipping.maxDays,
+        ),
+      ],
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cart`,
       phone_number_collection: { enabled: true },

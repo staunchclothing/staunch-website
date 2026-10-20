@@ -8,15 +8,31 @@ import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/products";
 import {
   freeShippingRemaining,
+  getStandardShippingAmount,
   isFreeShippingEligible,
+  type ShippingRegion,
 } from "@/lib/shipping";
+import { cn } from "@/lib/utils";
 
 export default function CartPage() {
   const { lines, subtotal, teeDiscount, teeCount, updateQuantity, removeItem, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [shippingRegion, setShippingRegion] = useState<ShippingRegion | null>(
+    null,
+  );
+  const freeShipping = isFreeShippingEligible(subtotal);
+  const shippingPence = shippingRegion
+    ? freeShipping
+      ? 0
+      : getStandardShippingAmount(shippingRegion)
+    : null;
 
   async function handleCheckout() {
+    if (!shippingRegion) {
+      setError("Choose UK or international shipping");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -29,6 +45,7 @@ export default function CartPage() {
             size: line.size,
             quantity: line.quantity,
           })),
+          shippingRegion,
         }),
       });
       const data = await res.json();
@@ -176,35 +193,65 @@ export default function CartPage() {
               Add another tee to get 2 for £65
             </p>
           )}
-          {!isFreeShippingEligible(subtotal) && subtotal > 0 && (
+          {!freeShipping && subtotal > 0 && (
             <p className="mt-3 text-xs text-staunch-muted">
               Spend {formatPrice(freeShippingRemaining(subtotal))} more for free
               shipping
             </p>
           )}
-          {isFreeShippingEligible(subtotal) && (
+          {freeShipping && (
             <p className="mt-3 text-xs text-staunch-accent">
               You&apos;ve qualified for free shipping
             </p>
           )}
-          <div className="mt-2 flex justify-between text-sm">
+
+          <div className="mt-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-staunch-muted">
+              Ship to
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  ["uk", "United Kingdom"],
+                  ["international", "International"],
+                ] as const
+              ).map(([region, label]) => (
+                <button
+                  key={region}
+                  type="button"
+                  onClick={() => setShippingRegion(region)}
+                  className={cn(
+                    "rounded-md border px-3 py-2.5 text-xs font-medium uppercase tracking-[0.12em] transition-colors",
+                    shippingRegion === region
+                      ? "border-staunch-accent bg-staunch-accent text-white"
+                      : "border-staunch-border text-staunch-fg hover:border-staunch-accent",
+                  )}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-3 flex justify-between text-sm">
             <span className="text-staunch-muted">Shipping</span>
             <span className="font-medium text-staunch-fg">
-              {isFreeShippingEligible(subtotal) ? "Free" : "At checkout"}
+              {shippingPence === null
+                ? "Select destination"
+                : shippingPence === 0
+                  ? "Free"
+                  : formatPrice(shippingPence)}
             </span>
           </div>
-          {!isFreeShippingEligible(subtotal) && (
-            <p className="mt-1 text-xs text-staunch-muted">
-              Standard delivery: £4.95 UK · £14.95 US
-            </p>
-          )}
           <div className="mt-4 flex justify-between border-t border-staunch-border pt-4 text-base font-medium">
             <span>Total</span>
-            <span>{formatPrice(subtotal)}</span>
+            <span>
+              {formatPrice(subtotal + (shippingPence ?? 0))}
+            </span>
           </div>
-          {!isFreeShippingEligible(subtotal) && (
+          {shippingRegion === "international" && !freeShipping && (
             <p className="mt-1 text-xs text-staunch-muted">
-              Shipping added at checkout
+              International delivery is £14.95
             </p>
           )}
 
@@ -217,7 +264,7 @@ export default function CartPage() {
           <button
             type="button"
             onClick={handleCheckout}
-            disabled={loading}
+            disabled={loading || !shippingRegion}
             className="mt-6 w-full rounded-md bg-staunch-accent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Redirecting…" : "Checkout with Stripe"}
