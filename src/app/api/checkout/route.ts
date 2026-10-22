@@ -79,6 +79,7 @@ export async function POST(request: Request) {
           product_data: {
             name: line.name,
             description: line.description,
+            metadata: line.metadata,
           },
           unit_amount: line.unitAmount,
         },

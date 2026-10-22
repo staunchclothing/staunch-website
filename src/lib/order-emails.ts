@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
 import type Stripe from "stripe";
-import { CONTACT_EMAIL, formatPrice } from "@/lib/products";
+import { CONTACT_EMAIL, formatPrice, getProductById } from "@/lib/products";
 
 function getFromAddress(): string {
   return process.env.EMAIL_FROM?.trim() || `Staunch <${CONTACT_EMAIL}>`;
@@ -54,6 +54,51 @@ function formatAddress(
   return lines.join("\n");
 }
 
+function getStripeProduct(item: Stripe.LineItem): Stripe.Product | null {
+  const product = item.price?.product;
+  if (!product || typeof product === "string" || product.deleted) {
+    return null;
+  }
+  return product;
+}
+
+function formatSizedProduct(productId: string, size: string): string {
+  const product = getProductById(productId);
+  const name = product?.name ?? productId;
+  if (!size || size === "One Size") return name;
+  return `${name} (Size ${size})`;
+}
+
+function getLineItemLabel(item: Stripe.LineItem): string {
+  const product = getStripeProduct(item);
+  const meta = product?.metadata ?? {};
+  const name = item.description?.trim() || product?.name || "Item";
+
+  if (meta.bundle === "tee-pair") {
+    const [firstId, firstSize] = (meta.item1 ?? "").split(":");
+    const [secondId, secondSize] = (meta.item2 ?? "").split(":");
+    if (firstId && firstSize && secondId && secondSize) {
+      return `${formatSizedProduct(firstId, firstSize)} + ${formatSizedProduct(secondId, secondSize)}`;
+    }
+  }
+
+  if (meta.size && meta.size !== "One Size" && !/\bsize\b/i.test(name)) {
+    return `${name} (Size ${meta.size})`;
+  }
+
+  const description = product?.description?.trim();
+  if (
+    description &&
+    !name.includes(description) &&
+    /\bsize\b/i.test(description) &&
+    !/\bsize\b/i.test(name)
+  ) {
+    return `${name} (${description})`;
+  }
+
+  return name;
+}
+
 function getLineItems(session: Stripe.Checkout.Session): string {
   const items = session.line_items?.data ?? [];
 
@@ -61,10 +106,9 @@ function getLineItems(session: Stripe.Checkout.Session): string {
 
   return items
     .map((item) => {
-      const name = item.description || "Item";
       const qty = item.quantity ?? 1;
       const total = formatPrice(item.amount_total ?? 0);
-      return `• ${name} × ${qty} — ${total}`;
+      return `• ${getLineItemLabel(item)} × ${qty} — ${total}`;
     })
     .join("\n");
 }

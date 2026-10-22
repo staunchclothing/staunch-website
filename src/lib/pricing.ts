@@ -82,8 +82,8 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     }
 
     lineItems.push({
-      name: product.name,
-      description: `Size: ${item.size}`,
+      name: checkoutItemName(product.name, item.size),
+      description: `Size ${item.size}`,
       unitAmount: product.price,
       quantity: item.quantity,
       metadata: {
@@ -100,8 +100,8 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     const secondProduct = getProductById(second.productId)!;
 
     lineItems.push({
-      name: "Heavyweight T-Shirt — 2 for £65",
-      description: `${firstProduct.color} (${first.size}), ${secondProduct.color} (${second.size})`,
+      name: `${checkoutItemName(firstProduct.name, first.size)} + ${checkoutItemName(secondProduct.name, second.size)}`,
+      description: `2 for £65 — Size ${first.size} and Size ${second.size}`,
       unitAmount: TEE_PAIR_PRICE,
       quantity: 1,
       metadata: {
@@ -115,8 +115,8 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
   for (const unit of teeUnits) {
     const product = getProductById(unit.productId)!;
     lineItems.push({
-      name: product.name,
-      description: `Size: ${unit.size}`,
+      name: checkoutItemName(product.name, unit.size),
+      description: `Size ${unit.size}`,
       unitAmount: TEE_PRICE,
       quantity: 1,
       metadata: {
@@ -127,4 +127,9 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
   }
 
   return lineItems;
+}
+
+function checkoutItemName(name: string, size: CartItem["size"]): string {
+  if (!size || size === "One Size") return name;
+  return `${name} (Size ${size})`;
 }

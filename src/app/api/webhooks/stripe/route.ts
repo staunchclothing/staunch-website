@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
     try {
       const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-        expand: ["line_items"],
+        expand: ["line_items", "line_items.data.price.product"],
       });
 
       await sendOrderEmails(fullSession);
