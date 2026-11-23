@@ -35,12 +35,7 @@ export function Logo({
 
 export function HeroLogoStack({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        "flex w-full max-w-md items-center justify-center px-4",
-        className,
-      )}
-    >
+    <div className={cn("flex items-center justify-center", className)}>
       <Image
         src={LOGO}
         alt="Staunch"
