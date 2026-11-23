@@ -1,11 +1,10 @@
 import { ProductCard } from "./ProductCard";
 import {
   getAccessoryProducts,
-  getCoreProducts,
   getNewReleaseProducts,
+  getShopAllProducts,
   getTeeProducts,
 } from "@/lib/products";
-import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
 type CatalogLayout = "all" | "new" | "t-shirts" | "accessories";
@@ -51,25 +50,9 @@ export function ProductCatalog({
     );
   }
 
-  const newReleases = getNewReleaseProducts();
-  const coreProducts = getCoreProducts();
-  const coreTees = coreProducts.filter((product) => product.category === "tee");
-  const remaining = coreProducts.filter((product) => product.category !== "tee");
-
   return (
-    <div className={cn("space-y-12", className)}>
-      {newReleases.length > 0 && (
-        <section>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-staunch-accent">
-            New
-          </p>
-          <div className="mt-4">
-            <ProductGrid products={newReleases} />
-          </div>
-        </section>
-      )}
-      {coreTees.length > 0 && <ProductGrid products={coreTees} />}
-      {remaining.length > 0 && <ProductGrid products={remaining} />}
+    <div className={className}>
+      <ProductGrid products={getShopAllProducts()} />
     </div>
   );
 }

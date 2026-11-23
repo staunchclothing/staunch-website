@@ -42,27 +42,49 @@ export const products: Product[] = [
     image: "/products/tee-black.png",
   },
   {
-    id: "staunch-tee-autumn",
-    slug: "embroidered-premium-cotton-heavyweight-t",
-    name: "The Ox T-Shirt",
+    id: "staunch-tee-ox-tallow",
+    slug: "ox-t-shirt-tallow",
+    name: "The Ox T-Shirt Tallow",
     description:
       "100% cotton premium heavyweight tee with embroidered oxen logo.",
     details: [
       "100% cotton",
-      "180gsm heavyweight fabric",
+      "220gsm fabric",
       "Embroidered Staunch oxen",
       "Relaxed fit",
     ],
     price: 4600,
     category: "tee",
-    color: "Brown",
+    color: "Tallow",
     sizes: ["L", "XL", "XXL"],
     image: "/products/tee-autumn-front.png",
     images: [
       "/products/tee-autumn-front.png",
       "/products/tee-autumn-back.png",
     ],
-    preorder: "Coming in 1 week",
+    newRelease: true,
+  },
+  {
+    id: "staunch-tee-ox-navy",
+    slug: "ox-t-shirt-navy",
+    name: "The Ox T-Shirt Navy",
+    description:
+      "100% cotton premium heavyweight tee with embroidered oxen logo.",
+    details: [
+      "100% cotton",
+      "220gsm fabric",
+      "Embroidered Staunch oxen",
+      "Relaxed fit",
+    ],
+    price: 4600,
+    category: "tee",
+    color: "Navy",
+    sizes: ["L", "XL", "XXL"],
+    image: "/products/tee-ox-navy-front.jpg",
+    images: [
+      "/products/tee-ox-navy-front.jpg",
+      "/products/tee-ox-navy-back.jpg",
+    ],
     newRelease: true,
   },
   {
@@ -105,9 +127,32 @@ export const products: Product[] = [
       "/products/bottle-opener-lifestyle.jpg",
     ],
     tagline: "One eye on the boundary, one eye on the pub.",
-    newRelease: true,
   },
 ];
+
+const SHOP_ALL_ORDER = [
+  "staunch-tee-ox-tallow",
+  "staunch-tee-ox-navy",
+  "staunch-bottle-opener",
+  "staunch-tee-white",
+  "staunch-tee-black",
+  "staunch-cap",
+] as const;
+
+const TEE_ORDER = [
+  "staunch-tee-ox-tallow",
+  "staunch-tee-ox-navy",
+  "staunch-tee-white",
+  "staunch-tee-black",
+] as const;
+
+const ACCESSORY_ORDER = ["staunch-bottle-opener", "staunch-cap"] as const;
+
+function productsById(ids: readonly string[]): Product[] {
+  return ids
+    .map((id) => getProductById(id))
+    .filter((product): product is Product => Boolean(product));
+}
 
 export const shopNavLinks = [
   { href: "/shop", label: "Shop all" },
@@ -124,26 +169,16 @@ export function getNewReleaseProducts(): Product[] {
   return products.filter((product) => product.newRelease);
 }
 
-export function getCoreProducts(): Product[] {
-  return products.filter((product) => !product.newRelease);
+export function getShopAllProducts(): Product[] {
+  return productsById(SHOP_ALL_ORDER);
 }
 
 export function getTeeProducts(): Product[] {
-  const tees = products.filter((product) => product.category === "tee");
-  return [
-    ...tees.filter((product) => product.newRelease),
-    ...tees.filter((product) => !product.newRelease),
-  ];
+  return productsById(TEE_ORDER);
 }
 
 export function getAccessoryProducts(): Product[] {
-  const accessories = products.filter(
-    (product) => product.category === "cap" || product.category === "opener",
-  );
-  return [
-    ...accessories.filter((product) => product.newRelease),
-    ...accessories.filter((product) => !product.newRelease),
-  ];
+  return productsById(ACCESSORY_ORDER);
 }
 
 export function getProductById(id: string): Product | undefined {
@@ -151,7 +186,9 @@ export function getProductById(id: string): Product | undefined {
 }
 
 export function isTeeDealProduct(product: Product | undefined): boolean {
-  return product?.category === "tee" && !product.preorder;
+  return (
+    product?.id === "staunch-tee-white" || product?.id === "staunch-tee-black"
+  );
 }
 
 export function isSizeAvailable(product: Product, size: Size): boolean {

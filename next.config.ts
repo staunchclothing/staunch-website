@@ -5,7 +5,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/shop/limited-edition-autumn-heavyweight-tee",
-        destination: "/shop/embroidered-premium-cotton-heavyweight-t",
+        destination: "/shop/ox-t-shirt-tallow",
+        permanent: true,
+      },
+      {
+        source: "/shop/embroidered-premium-cotton-heavyweight-t",
+        destination: "/shop/ox-t-shirt-tallow",
         permanent: true,
       },
     ];

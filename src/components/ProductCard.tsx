@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ProductImage } from "./ProductImage";
-import { formatPrice } from "@/lib/products";
+import { formatPrice, isTeeDealProduct } from "@/lib/products";
 import type { Product } from "@/types";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -33,7 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="text-sm font-medium text-staunch-fg">
             {formatPrice(product.price)}
           </p>
-          {product.category === "tee" && !product.preorder && (
+          {isTeeDealProduct(product) && (
             <p className="mt-0.5 text-xs text-staunch-accent">2 for £65</p>
           )}
         </div>

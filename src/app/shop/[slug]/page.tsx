@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 import { AddToCartForm } from "@/components/AddToCartForm";
 import { ProductGallery } from "@/components/ProductGallery";
 import { ProductImage } from "@/components/ProductImage";
-import { formatPrice, getProductBySlug, products } from "@/lib/products";
+import {
+  formatPrice,
+  getProductBySlug,
+  isTeeDealProduct,
+  products,
+} from "@/lib/products";
 import { TEE_PAIR_PRICE } from "@/lib/pricing";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
@@ -75,7 +80,7 @@ export default async function ProductPage({
               Preorder — {product.preorder}
             </p>
           )}
-          {product.category === "tee" && !product.preorder && (
+          {isTeeDealProduct(product) && (
             <p className="mt-1 text-sm text-staunch-accent">
               2 for {formatPrice(TEE_PAIR_PRICE)}
             </p>
