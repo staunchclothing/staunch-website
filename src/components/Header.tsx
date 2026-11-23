@@ -35,7 +35,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-staunch-border bg-staunch-bg/95 backdrop-blur-md">
       <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6">
-        <Link href="/" className="text-staunch-fg" onClick={() => setMenuOpen(false)}>
+        <Link
+          href="/"
+          className="translate-y-[5px] text-staunch-fg sm:translate-y-1.5"
+          onClick={() => setMenuOpen(false)}
+        >
           <Logo />
         </Link>
 

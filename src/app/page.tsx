@@ -39,7 +39,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative flex min-h-[420px] items-center justify-center border-t border-staunch-border bg-staunch-bg px-8 py-16 lg:min-h-0 lg:border-l lg:border-t-0">
+          <div className="relative flex min-h-[420px] items-center justify-center border-t border-staunch-border bg-staunch-bg px-8 py-16 lg:min-h-0 lg:justify-end lg:border-l lg:border-t-0 lg:pr-16 xl:pr-20">
             <HeroLogoStack />
           </div>
         </div>
