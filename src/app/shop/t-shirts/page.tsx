@@ -12,7 +12,7 @@ export default function TShirtsPage() {
   return (
     <ShopListing
       title="T-shirts"
-      description={`Heavyweight 100% cotton tees. Standard tees are £35 each, or 2 for £65. ${FREE_SHIPPING_DETAIL}`}
+      description={`Heavyweight 100% cotton tees. Original tees are £35, or 2 for £65. Ox tees are £55, or 2 for £95. ${FREE_SHIPPING_DETAIL}`}
     >
       <ProductCatalog className="mt-12" layout="t-shirts" />
     </ShopListing>

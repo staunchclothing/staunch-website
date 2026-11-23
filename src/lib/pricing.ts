@@ -1,21 +1,39 @@
-import { getProductById, isTeeDealProduct } from "@/lib/products";
+import {
+  getProductById,
+  isOxTeeProduct,
+  isTeeDealProduct,
+} from "@/lib/products";
 import type { CartItem, CartLine } from "@/types";
 
 export const TEE_PRICE = 3500;
 export const TEE_PAIR_PRICE = 6500;
+export const OX_TEE_PRICE = 5500;
+export const OX_TEE_PAIR_PRICE = 9500;
 
 export interface CartPricing {
   teeCount: number;
-  teePairs: number;
-  teeSingles: number;
-  teeFullPrice: number;
-  teeSubtotal: number;
   teeDiscount: number;
+  oxCount: number;
+  oxDiscount: number;
   capSubtotal: number;
   subtotal: number;
 }
 
-export function countTees(items: Pick<CartItem, "productId" | "quantity">[]): number {
+function pairDeal(count: number, unitPrice: number, pairPrice: number) {
+  const pairs = Math.floor(count / 2);
+  const singles = count % 2;
+  const fullPrice = count * unitPrice;
+  const subtotal = pairs * pairPrice + singles * unitPrice;
+  return {
+    count,
+    discount: fullPrice - subtotal,
+    subtotal,
+  };
+}
+
+export function countTees(
+  items: Pick<CartItem, "productId" | "quantity">[],
+): number {
   return items.reduce((sum, item) => {
     const product = getProductById(item.productId);
     if (isTeeDealProduct(product)) return sum + item.quantity;
@@ -25,31 +43,29 @@ export function countTees(items: Pick<CartItem, "productId" | "quantity">[]): nu
 
 export function calculateCartPricing(lines: CartLine[]): CartPricing {
   let teeCount = 0;
+  let oxCount = 0;
   let capSubtotal = 0;
 
   for (const line of lines) {
     if (isTeeDealProduct(line.product)) {
       teeCount += line.quantity;
+    } else if (isOxTeeProduct(line.product)) {
+      oxCount += line.quantity;
     } else {
       capSubtotal += line.lineTotal;
     }
   }
 
-  const teePairs = Math.floor(teeCount / 2);
-  const teeSingles = teeCount % 2;
-  const teeFullPrice = teeCount * TEE_PRICE;
-  const teeSubtotal = teePairs * TEE_PAIR_PRICE + teeSingles * TEE_PRICE;
-  const teeDiscount = teeFullPrice - teeSubtotal;
+  const original = pairDeal(teeCount, TEE_PRICE, TEE_PAIR_PRICE);
+  const ox = pairDeal(oxCount, OX_TEE_PRICE, OX_TEE_PAIR_PRICE);
 
   return {
     teeCount,
-    teePairs,
-    teeSingles,
-    teeFullPrice,
-    teeSubtotal,
-    teeDiscount,
+    teeDiscount: original.discount,
+    oxCount,
+    oxDiscount: ox.discount,
     capSubtotal,
-    subtotal: teeSubtotal + capSubtotal,
+    subtotal: original.subtotal + ox.subtotal + capSubtotal,
   };
 }
 
@@ -68,7 +84,8 @@ export interface CheckoutLineItem {
 
 export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
   const lineItems: CheckoutLineItem[] = [];
-  const teeUnits: CheckoutUnit[] = [];
+  const originalTeeUnits: CheckoutUnit[] = [];
+  const oxTeeUnits: CheckoutUnit[] = [];
 
   for (const item of items) {
     const product = getProductById(item.productId);
@@ -76,7 +93,14 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
 
     if (isTeeDealProduct(product)) {
       for (let i = 0; i < item.quantity; i++) {
-        teeUnits.push({ productId: item.productId, size: item.size });
+        originalTeeUnits.push({ productId: item.productId, size: item.size });
+      }
+      continue;
+    }
+
+    if (isOxTeeProduct(product)) {
+      for (let i = 0; i < item.quantity; i++) {
+        oxTeeUnits.push({ productId: item.productId, size: item.size });
       }
       continue;
     }
@@ -93,16 +117,28 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     });
   }
 
-  while (teeUnits.length >= 2) {
-    const first = teeUnits.shift()!;
-    const second = teeUnits.shift()!;
+  addPairedTeeItems(lineItems, originalTeeUnits, TEE_PAIR_PRICE, "2 for £65");
+  addPairedTeeItems(lineItems, oxTeeUnits, OX_TEE_PAIR_PRICE, "2 for £95");
+
+  return lineItems;
+}
+
+function addPairedTeeItems(
+  lineItems: CheckoutLineItem[],
+  units: CheckoutUnit[],
+  pairPrice: number,
+  pairLabel: string,
+) {
+  while (units.length >= 2) {
+    const first = units.shift()!;
+    const second = units.shift()!;
     const firstProduct = getProductById(first.productId)!;
     const secondProduct = getProductById(second.productId)!;
 
     lineItems.push({
       name: `${checkoutItemName(firstProduct.name, first.size)} + ${checkoutItemName(secondProduct.name, second.size)}`,
-      description: `2 for £65 — Size ${first.size} and Size ${second.size}`,
-      unitAmount: TEE_PAIR_PRICE,
+      description: `${pairLabel} — Size ${first.size} and Size ${second.size}`,
+      unitAmount: pairPrice,
       quantity: 1,
       metadata: {
         bundle: "tee-pair",
@@ -112,12 +148,12 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
     });
   }
 
-  for (const unit of teeUnits) {
+  for (const unit of units) {
     const product = getProductById(unit.productId)!;
     lineItems.push({
       name: checkoutItemName(product.name, unit.size),
       description: `Size ${unit.size}`,
-      unitAmount: TEE_PRICE,
+      unitAmount: product.price,
       quantity: 1,
       metadata: {
         productId: product.id,
@@ -125,8 +161,6 @@ export function buildCheckoutLineItems(items: CartItem[]): CheckoutLineItem[] {
       },
     });
   }
-
-  return lineItems;
 }
 
 function checkoutItemName(name: string, size: CartItem["size"]): string {

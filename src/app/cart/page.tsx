@@ -15,7 +15,17 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function CartPage() {
-  const { lines, subtotal, teeDiscount, teeCount, updateQuantity, removeItem, clearCart } = useCart();
+  const {
+    lines,
+    subtotal,
+    teeDiscount,
+    teeCount,
+    oxDiscount,
+    oxCount,
+    updateQuantity,
+    removeItem,
+    clearCart,
+  } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shippingRegion, setShippingRegion] = useState<ShippingRegion | null>(
@@ -180,7 +190,7 @@ export default function CartPage() {
           </h2>
           <div className="mt-4 flex justify-between text-sm">
             <span className="text-staunch-muted">Subtotal</span>
-            <span>{formatPrice(subtotal + teeDiscount)}</span>
+            <span>{formatPrice(subtotal + teeDiscount + oxDiscount)}</span>
           </div>
           {teeDiscount > 0 && (
             <div className="mt-2 flex justify-between text-sm text-staunch-accent">
@@ -188,9 +198,20 @@ export default function CartPage() {
               <span>-{formatPrice(teeDiscount)}</span>
             </div>
           )}
+          {oxDiscount > 0 && (
+            <div className="mt-2 flex justify-between text-sm text-staunch-accent">
+              <span>2 for £95 discount</span>
+              <span>-{formatPrice(oxDiscount)}</span>
+            </div>
+          )}
           {teeCount === 1 && (
             <p className="mt-3 text-xs text-staunch-muted">
-              Add another tee to get 2 for £65
+              Add another original tee to get 2 for £65
+            </p>
+          )}
+          {oxCount === 1 && (
+            <p className="mt-3 text-xs text-staunch-muted">
+              Add another Ox T-Shirt to get 2 for £95
             </p>
           )}
           {!freeShipping && subtotal > 0 && (

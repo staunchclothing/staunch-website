@@ -53,7 +53,7 @@ export const products: Product[] = [
       "Embroidered Staunch oxen",
       "Relaxed fit",
     ],
-    price: 4600,
+    price: 5500,
     category: "tee",
     color: "Tallow",
     sizes: ["L", "XL", "XXL"],
@@ -76,7 +76,7 @@ export const products: Product[] = [
       "Embroidered Staunch oxen",
       "Relaxed fit",
     ],
-    price: 4600,
+    price: 5500,
     category: "tee",
     color: "Navy",
     sizes: ["L", "XL", "XXL"],
@@ -188,6 +188,13 @@ export function getProductById(id: string): Product | undefined {
 export function isTeeDealProduct(product: Product | undefined): boolean {
   return (
     product?.id === "staunch-tee-white" || product?.id === "staunch-tee-black"
+  );
+}
+
+export function isOxTeeProduct(product: Product | undefined): boolean {
+  return (
+    product?.id === "staunch-tee-ox-tallow" ||
+    product?.id === "staunch-tee-ox-navy"
   );
 }
 

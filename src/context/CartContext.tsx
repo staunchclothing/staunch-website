@@ -20,6 +20,8 @@ interface CartContextValue {
   subtotal: number;
   teeDiscount: number;
   teeCount: number;
+  oxDiscount: number;
+  oxCount: number;
   addItem: (product: Product, size: Size, quantity?: number) => void;
   removeItem: (productId: string, size: Size) => void;
   updateQuantity: (productId: string, size: Size, quantity: number) => void;
@@ -151,6 +153,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       subtotal: pricing.subtotal,
       teeDiscount: pricing.teeDiscount,
       teeCount: pricing.teeCount,
+      oxDiscount: pricing.oxDiscount,
+      oxCount: pricing.oxCount,
       addItem,
       removeItem,
       updateQuantity,

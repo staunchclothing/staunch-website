@@ -6,10 +6,11 @@ import { ProductImage } from "@/components/ProductImage";
 import {
   formatPrice,
   getProductBySlug,
+  isOxTeeProduct,
   isTeeDealProduct,
   products,
 } from "@/lib/products";
-import { TEE_PAIR_PRICE } from "@/lib/pricing";
+import { OX_TEE_PAIR_PRICE, TEE_PAIR_PRICE } from "@/lib/pricing";
 import { FREE_SHIPPING_DETAIL } from "@/lib/shipping";
 import type { Metadata } from "next";
 
@@ -83,6 +84,11 @@ export default async function ProductPage({
           {isTeeDealProduct(product) && (
             <p className="mt-1 text-sm text-staunch-accent">
               2 for {formatPrice(TEE_PAIR_PRICE)}
+            </p>
+          )}
+          {isOxTeeProduct(product) && (
+            <p className="mt-1 text-sm text-staunch-accent">
+              2 for {formatPrice(OX_TEE_PAIR_PRICE)}
             </p>
           )}
           <p className="mt-6 text-sm leading-relaxed text-staunch-muted sm:text-base">

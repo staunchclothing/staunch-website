@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { ProductImage } from "./ProductImage";
-import { formatPrice, isTeeDealProduct } from "@/lib/products";
+import {
+  formatPrice,
+  isOxTeeProduct,
+  isTeeDealProduct,
+} from "@/lib/products";
 import type { Product } from "@/types";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -35,6 +39,9 @@ export function ProductCard({ product }: { product: Product }) {
           </p>
           {isTeeDealProduct(product) && (
             <p className="mt-0.5 text-xs text-staunch-accent">2 for £65</p>
+          )}
+          {isOxTeeProduct(product) && (
+            <p className="mt-0.5 text-xs text-staunch-accent">2 for £95</p>
           )}
         </div>
       </div>
