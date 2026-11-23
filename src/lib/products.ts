@@ -80,9 +80,9 @@ export const products: Product[] = [
     category: "tee",
     color: "Navy",
     sizes: ["L", "XL", "XXL"],
-    image: "/products/tee-ox-navy-front.jpg",
+    image: "/products/tee-ox-navy-white-front.jpg",
     images: [
-      "/products/tee-ox-navy-front.jpg",
+      "/products/tee-ox-navy-white-front.jpg",
       "/products/tee-ox-navy-back.jpg",
     ],
     newRelease: true,
