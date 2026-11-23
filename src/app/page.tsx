@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { HeroLogoStack } from "@/components/Logo";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { TAGLINE } from "@/lib/brand";
+import { FREE_SHIPPING_SHORT } from "@/lib/shipping";
 
 export default function HomePage() {
   return (
@@ -53,6 +54,9 @@ export default function HomePage() {
             <h2 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
               All products
             </h2>
+            <p className="mt-2 text-sm text-staunch-accent">
+              {FREE_SHIPPING_SHORT}
+            </p>
           </div>
           <Link
             href="/shop"
