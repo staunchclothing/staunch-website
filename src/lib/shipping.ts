@@ -1,12 +1,12 @@
-export const FREE_SHIPPING_MINIMUM = 6500;
+export const FREE_SHIPPING_MINIMUM = 6000;
 export const UK_STANDARD_SHIPPING = 495;
 export const INTERNATIONAL_STANDARD_SHIPPING = 1495;
 
 export const FREE_SHIPPING_SHORT =
-  "Free shipping on orders of £65 or more.";
+  "Free shipping on orders of £60 or more.";
 
 export const FREE_SHIPPING_DETAIL =
-  "Standard delivery is £4.95 (UK) or £14.95 (International). Free shipping on orders of £65 or more.";
+  "Standard delivery is £4.95 (UK) or £14.95 (International). Free shipping on orders of £60 or more.";
 
 export type ShippingRegion = "uk" | "international";
 

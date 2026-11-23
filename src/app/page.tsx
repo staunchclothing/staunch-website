@@ -53,10 +53,6 @@ export default function HomePage() {
             <h2 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
               All products
             </h2>
-            <p className="mt-2 text-sm text-staunch-accent">
-              Original tees £35 — 2 for £65 · Ox tees £55 — 2 for £95 · Free
-              shipping on orders over £65
-            </p>
           </div>
           <Link
             href="/shop"
