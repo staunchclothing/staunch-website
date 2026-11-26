@@ -27,7 +27,11 @@ export function ProductGallery({ images, alt }: ProductGalleryProps) {
         <div
           className={cn(
             "grid gap-3",
-            images.length === 3 ? "grid-cols-3" : "grid-cols-2",
+            images.length === 4
+              ? "grid-cols-4"
+              : images.length === 3
+                ? "grid-cols-3"
+                : "grid-cols-2",
           )}
         >
           {images.map((image, index) => (

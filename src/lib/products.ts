@@ -62,6 +62,7 @@ export const products: Product[] = [
     image: "/products/tee-ox-tallow-full.jpg",
     images: [
       "/products/tee-ox-tallow-full.jpg",
+      "/products/tee-ox-tallow-hanger.jpg",
       "/products/tee-ox-tallow-ox.jpg",
       "/products/tee-ox-tallow-size.jpg",
     ],
@@ -86,6 +87,7 @@ export const products: Product[] = [
     image: "/products/tee-ox-navy-full.jpg",
     images: [
       "/products/tee-ox-navy-full.jpg",
+      "/products/tee-ox-navy-hanger.jpg",
       "/products/tee-ox-navy-ox.jpg",
       "/products/tee-ox-navy-size.jpg",
     ],
