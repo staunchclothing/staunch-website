@@ -20,7 +20,8 @@ export const products: Product[] = [
     color: "White",
     sizes: ["L", "XL", "XXL"],
     soldOutSizes: ["L", "XXL"],
-    image: "/products/tee-white.png",
+    image: "/products/tee-white-full.jpg",
+    images: ["/products/tee-white-full.jpg", "/products/tee-white.png"],
   },
   {
     id: "staunch-tee-black",
@@ -39,7 +40,8 @@ export const products: Product[] = [
     color: "Black",
     sizes: ["L", "XL", "XXL"],
     soldOutSizes: ["L", "XXL"],
-    image: "/products/tee-black.png",
+    image: "/products/tee-black-full.jpg",
+    images: ["/products/tee-black-full.jpg", "/products/tee-black.png"],
   },
   {
     id: "staunch-tee-ox-tallow",

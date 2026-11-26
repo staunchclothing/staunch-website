@@ -34,6 +34,7 @@ export function ProductImage({
       )}
     >
       <Image
+        key={src}
         src={src}
         alt={alt}
         fill
